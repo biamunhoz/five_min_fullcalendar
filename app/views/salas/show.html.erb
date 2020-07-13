@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @sala.nome %>
+</p>
+
+<p>
+  <strong>Cor:</strong>
+  <%= @sala.cor %>
+</p>
+
+<p>
+  <strong>Permissaoauto:</strong>
+  <%= @sala.permissaoauto %>
+</p>
+
+<p>
+  <strong>Observacao:</strong>
+  <%= @sala.observacao %>
+</p>
+
+<p>
+  <strong>Confirmacao:</strong>
+  <%= @sala.confirmacao %>
+</p>
+
+<p>
+  <strong>Agendas:</strong>
+  <%= @sala.agendas %>
+</p>
+
+<%= link_to 'Edit', edit_sala_path(@sala) %> |
+<%= link_to 'Back', salas_path %>
