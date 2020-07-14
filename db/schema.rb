@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_150149) do
+ActiveRecord::Schema.define(version: 2020_07_14_171919) do
 
   create_table "agendas", force: :cascade do |t|
     t.string "nome"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(version: 2020_07_13_150149) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "perfils", force: :cascade do |t|
+    t.string "nomeperfil"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "salas", force: :cascade do |t|
     t.string "nome"
     t.string "cor"
@@ -41,6 +47,35 @@ ActiveRecord::Schema.define(version: 2020_07_13_150149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agendas_id"], name: "index_salas_on_agendas_id"
+  end
+
+  create_table "tipo_vinculos", force: :cascade do |t|
+    t.string "tipoVinculo"
+    t.string "codigoSetor"
+    t.string "nomeAbreviadSetor"
+    t.string "nomeSetor"
+    t.string "codigoUnidade"
+    t.string "siglaUnidade"
+    t.string "nomeUnidade"
+    t.string "nomeVinculo"
+    t.string "nomeAbreviadoFuncao"
+    t.integer "usuario_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id"], name: "index_tipo_vinculos_on_usuario_id"
+  end
+
+  create_table "usuarios", force: :cascade do |t|
+    t.string "nomeUsuario"
+    t.string "loginUsuario"
+    t.string "tipoUsuario"
+    t.string "emailPrincipalUsuario"
+    t.string "emailAlternativoUsuario"
+    t.string "emailUspUsuario"
+    t.string "numeroTelefoneFormatado"
+    t.string "ramalUsp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
