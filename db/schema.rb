@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_171919) do
+ActiveRecord::Schema.define(version: 2020_07_22_173144) do
 
   create_table "agendas", force: :cascade do |t|
     t.string "nome"
@@ -18,6 +18,11 @@ ActiveRecord::Schema.define(version: 2020_07_14_171919) do
     t.string "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "agendas_salas", id: false, force: :cascade do |t|
+    t.integer "agenda_id", null: false
+    t.integer "sala_id", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -35,6 +40,15 @@ ActiveRecord::Schema.define(version: 2020_07_14_171919) do
     t.string "nomeperfil"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "permissaos", force: :cascade do |t|
+    t.integer "usuarios_id"
+    t.integer "salas_id"
+    t.integer "perfils_id"
+    t.index ["perfils_id"], name: "index_permissaos_on_perfils_id"
+    t.index ["salas_id"], name: "index_permissaos_on_salas_id"
+    t.index ["usuarios_id"], name: "index_permissaos_on_usuarios_id"
   end
 
   create_table "salas", force: :cascade do |t|
