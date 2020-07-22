@@ -32,3 +32,4 @@
 
 /config/environment_variables.yml
 /.idea/*
+/config/database.yml

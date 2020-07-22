@@ -67,3 +67,5 @@ gem 'momentjs-rails'
 
 gem 'senhaunica'
 gem 'oauth'
+
+gem 'mysql2', group: :mysql

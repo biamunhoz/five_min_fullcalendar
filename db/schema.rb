@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_07_22_173144) do
 
-  create_table "agendas", force: :cascade do |t|
+  create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
     t.boolean "apresentacaotelaini"
     t.string "observacao"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "agendas_salas", id: false, force: :cascade do |t|
-    t.integer "agenda_id", null: false
-    t.integer "sala_id", null: false
+  create_table "agendas_salas", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "agenda_id", null: false
+    t.bigint "sala_id", null: false
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "string"
     t.string "body"
@@ -36,34 +36,34 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "perfils", force: :cascade do |t|
+  create_table "perfils", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nomeperfil"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "permissaos", force: :cascade do |t|
-    t.integer "usuarios_id"
-    t.integer "salas_id"
-    t.integer "perfils_id"
+  create_table "permissaos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "usuarios_id"
+    t.bigint "salas_id"
+    t.bigint "perfils_id"
     t.index ["perfils_id"], name: "index_permissaos_on_perfils_id"
     t.index ["salas_id"], name: "index_permissaos_on_salas_id"
     t.index ["usuarios_id"], name: "index_permissaos_on_usuarios_id"
   end
 
-  create_table "salas", force: :cascade do |t|
+  create_table "salas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
     t.string "cor"
     t.boolean "permissaoauto"
     t.text "observacao"
     t.boolean "confirmacao"
-    t.integer "agendas_id"
+    t.bigint "agendas_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agendas_id"], name: "index_salas_on_agendas_id"
   end
 
-  create_table "tipo_vinculos", force: :cascade do |t|
+  create_table "tipo_vinculos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "tipoVinculo"
     t.string "codigoSetor"
     t.string "nomeAbreviadSetor"
@@ -73,13 +73,13 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.string "nomeUnidade"
     t.string "nomeVinculo"
     t.string "nomeAbreviadoFuncao"
-    t.integer "usuario_id"
+    t.bigint "usuario_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["usuario_id"], name: "index_tipo_vinculos_on_usuario_id"
   end
 
-  create_table "usuarios", force: :cascade do |t|
+  create_table "usuarios", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nomeUsuario"
     t.string "loginUsuario"
     t.string "tipoUsuario"
@@ -92,4 +92,9 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "permissaos", "perfils", column: "perfils_id"
+  add_foreign_key "permissaos", "salas", column: "salas_id"
+  add_foreign_key "permissaos", "usuarios", column: "usuarios_id"
+  add_foreign_key "salas", "agendas", column: "agendas_id"
+  add_foreign_key "tipo_vinculos", "usuarios"
 end
