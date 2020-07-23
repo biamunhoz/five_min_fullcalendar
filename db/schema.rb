@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_173144) do
+ActiveRecord::Schema.define(version: 2020_07_23_183525) do
+
+  create_table "agenda_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "usuarios_id"
+    t.bigint "agendas_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agendas_id"], name: "index_agenda_users_on_agendas_id"
+    t.index ["usuarios_id"], name: "index_agenda_users_on_usuarios_id"
+  end
 
   create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -18,11 +27,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.string "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "agendas_salas", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "agenda_id", null: false
-    t.bigint "sala_id", null: false
   end
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -46,6 +50,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.bigint "usuarios_id"
     t.bigint "salas_id"
     t.bigint "perfils_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["perfils_id"], name: "index_permissaos_on_perfils_id"
     t.index ["salas_id"], name: "index_permissaos_on_salas_id"
     t.index ["usuarios_id"], name: "index_permissaos_on_usuarios_id"
@@ -92,6 +98,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_173144) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "agenda_users", "agendas", column: "agendas_id"
+  add_foreign_key "agenda_users", "usuarios", column: "usuarios_id"
   add_foreign_key "permissaos", "perfils", column: "perfils_id"
   add_foreign_key "permissaos", "salas", column: "salas_id"
   add_foreign_key "permissaos", "usuarios", column: "usuarios_id"
