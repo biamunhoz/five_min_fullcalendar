@@ -24,6 +24,7 @@
 #  <<: *default
 #  database: db/production.sqlite3
 
+
 mysql: &mysql
   adapter: mysql2
   username: root

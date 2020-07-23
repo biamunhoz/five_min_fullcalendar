@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body data-turbolinks = "false">
 
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="container">
@@ -19,7 +19,9 @@
 
             <li class="lead"> <%= link_to "Usuários", usuarios_path %></li>
             <li class="lead"> <%= link_to "Perfil", perfils_path %></li>
-
+            <li class="lead"> <%= link_to "Eventos", events_url %></li>
+            <li class="lead"> <%= link_to "Agendas", agendas_path %></li>
+            <li class="lead"> <%= link_to "Salas", salas_path %></li>
           <% end %>
 
           <li class="lead"> <%= link_to "Sair" , logout_path %></li>
