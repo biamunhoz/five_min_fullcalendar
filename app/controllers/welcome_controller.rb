@@ -1,5 +1,10 @@
 class WelcomeController < ApplicationController
 
+  def inicial
+    
+    @agendas = Agenda.all
+    
+  end 
 
   def login
 

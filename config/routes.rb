@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  get 'welcome/login'
+  #get 'welcome/login'
+  get 'welcome/login', as: 'login'
   get 'welcome/callback'
   resources :perfils
   resources :tipo_vinculos
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
 
   get 'logout' => 'welcome#destroy', as: 'logout'
 
-  root 'welcome#login'
+  #root 'welcome#login'
+
+  root 'welcome#inicial'
   
 end

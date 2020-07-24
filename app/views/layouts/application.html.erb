@@ -16,22 +16,24 @@
 
         <ul class="nav navbar-nav">
           <% if session[:login] != nil %>
-
+            <!-- Se for id da Informatica aparece tudo isso -->
             <li class="lead"> <%= link_to "Usuários", usuarios_path %></li>
             <li class="lead"> <%= link_to "Perfil", perfils_path %></li>
             <li class="lead"> <%= link_to "Eventos", events_url %></li>
             <li class="lead"> <%= link_to "Agendas", agendas_path %></li>
             <li class="lead"> <%= link_to "Salas", salas_path %></li>
+            <li class="lead"> <%= link_to "Sair" , logout_path %></li>
+          <% else%>
+            <li class="lead"> <%= link_to "Login", login_path %></li>
           <% end %>
-
-          <li class="lead"> <%= link_to "Sair" , logout_path %></li>
 
         </ul>
       </div>  
     </nav>
 
-    <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
-
+    <% if session[:login] != nil %>
+      <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
+    <% end %>
     <%= yield %>
   </body>
 </html>

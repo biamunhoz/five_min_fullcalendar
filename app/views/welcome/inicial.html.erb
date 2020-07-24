@@ -1,0 +1,21 @@
+<h3>Veja aqui as agendas disponiveis:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Observacao</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agendas.each do |agenda| %>
+      <tr>
+        <td><%= agenda.nome %></td>
+        <td><%= agenda.observacao %></td>
+        <td><!-- Associar a essa agenda somente se ela for publica --></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
