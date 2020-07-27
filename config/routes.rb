@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   get 'logout' => 'welcome#destroy', as: 'logout'
 
+  get 'inscricao/:id' => 'agendas#inscricao', as: 'inscricao'
+
   #root 'welcome#login'
 
   root 'welcome#inicial'

@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_133328) do
-
-  create_table "agenda_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "usuarios_id"
-    t.bigint "agendas_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["agendas_id"], name: "index_agenda_users_on_agendas_id"
-    t.index ["usuarios_id"], name: "index_agenda_users_on_usuarios_id"
-  end
+ActiveRecord::Schema.define(version: 2020_07_27_193043) do
 
   create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -39,6 +30,15 @@ ActiveRecord::Schema.define(version: 2020_07_24_133328) do
     t.string "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "inscricaos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "usuario_id"
+    t.bigint "agenda_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agenda_id"], name: "index_inscricaos_on_agenda_id"
+    t.index ["usuario_id"], name: "index_inscricaos_on_usuario_id"
   end
 
   create_table "perfils", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 2020_07_24_133328) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "agenda_users", "agendas", column: "agendas_id"
-  add_foreign_key "agenda_users", "usuarios", column: "usuarios_id"
+  add_foreign_key "inscricaos", "agendas"
+  add_foreign_key "inscricaos", "usuarios"
   add_foreign_key "permissaos", "perfils", column: "perfils_id"
   add_foreign_key "permissaos", "salas", column: "salas_id"
   add_foreign_key "permissaos", "usuarios", column: "usuarios_id"

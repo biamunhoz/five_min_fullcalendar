@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AgendaUserTest < ActiveSupport::TestCase
+class InscricaoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

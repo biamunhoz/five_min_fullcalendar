@@ -14,7 +14,7 @@
       <tr>
         <td><%= agenda.nome %></td>
         <td><%= agenda.observacao %></td>
-        <td><!-- Associar a essa agenda somente se ela for publica --></td>
+        <td><%= link_to "Inscriçao", inscricao_path(agenda) %> </td>
       </tr>
     <% end %>
   </tbody>

@@ -33,6 +33,8 @@
 
     <% if session[:login] != nil %>
       <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
+
+
     <% end %>
     <%= yield %>
   </body>

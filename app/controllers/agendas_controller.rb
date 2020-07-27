@@ -7,6 +7,34 @@ class AgendasController < ApplicationController
     @agendas = Agenda.all
   end
 
+  def inscricao
+
+    if session[:login] == nil
+      
+      redirect_to login_path
+
+    else  
+
+      @agenda = params[:id]
+
+      @valida = Inscricao.find_by(usuario_id: current_user.id, agenda_id:@agenda)
+
+      if @valida.nil?
+
+        @insc = Inscricao.new
+        @insc.usuario_id = current_user.id
+        @insc.agenda_id = @agenda
+        @insc.save!
+
+        @confirmado = true
+
+      else
+        @confirmado = false
+      end
+    end  
+    
+  end  
+
   # GET /agendas/1
   # GET /agendas/1.json
   def show

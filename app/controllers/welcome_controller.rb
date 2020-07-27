@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
 
     # Parte conceitual: http://oauthbible.com/
     # A USP usa o OAuth 1.0a (Three Legged)
-
+    
     # 1. Gera objeto consumidor
     @consumer = gera_consumidor()
 
