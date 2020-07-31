@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   #get 'welcome/login'
   get 'welcome/login', as: 'login'
   get 'welcome/callback'
+  
   resources :perfils
   resources :tipo_vinculos
   resources :usuarios
@@ -17,8 +18,7 @@ Rails.application.routes.draw do
 
   get 'inscricao/:id' => 'agendas#inscricao', as: 'inscricao'
 
-  #root 'welcome#login'
+  root 'welcome#login'
 
-  root 'welcome#inicial'
   
 end

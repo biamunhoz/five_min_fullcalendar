@@ -1,2 +1,21 @@
-<h1>Welcome#callback</h1>
-<p>Find me in app/views/welcome/callback.html.erb</p>
+<h3>Veja aqui as agendas disponiveis:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Observacao</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agendas.each do |agenda| %>
+      <tr>
+        <td><%= agenda.nome %></td>
+        <td><%= agenda.observacao %></td>
+        <td><%= link_to "Inscriçao", inscricao_path(agenda) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

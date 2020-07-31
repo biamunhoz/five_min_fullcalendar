@@ -1,11 +1,5 @@
 class WelcomeController < ApplicationController
 
-  def inicial
-    
-    @agendas = Agenda.all
-    
-  end 
-
   def login
 
     # Parte conceitual: http://oauthbible.com/
@@ -46,9 +40,13 @@ class WelcomeController < ApplicationController
 
     #10. @data tem os dados 
 
+    @agendas = Agenda.all
+
     loginUsuario = tratauser
 
     log_in loginUsuario
+
+   
 
   end
 
