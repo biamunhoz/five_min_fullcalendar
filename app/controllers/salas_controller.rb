@@ -69,6 +69,6 @@ class SalasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sala_params
-      params.require(:sala).permit(:nome, :cor, :permissaoauto, :observacao, :confirmacao, :agendas_id)
+      params.require(:sala).permit(:nome, :cor, :permissaoauto, :observacao, :confirmacao, :agenda_id)
     end
 end

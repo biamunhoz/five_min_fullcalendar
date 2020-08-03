@@ -23,7 +23,7 @@
         <td><%= sala.permissaoauto %></td>
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao %></td>
-        <td><%= sala.agendas %></td>
+        <td><%= sala.agenda.nome %></td>
         <td><%= link_to 'Show', sala %></td>
         <td><%= link_to 'Edit', edit_sala_path(sala) %></td>
         <td><%= link_to 'Destroy', sala, method: :delete, data: { confirm: 'Are you sure?' } %></td>

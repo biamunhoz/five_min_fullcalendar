@@ -1,5 +1,5 @@
 class Permissao < ApplicationRecord
-  belongs_to :usuarios
-  belongs_to :salas
-  belongs_to :perfils
+  belongs_to :usuario
+  belongs_to :sala
+  belongs_to :perfil
 end

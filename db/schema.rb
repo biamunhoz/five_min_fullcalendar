@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_193043) do
+ActiveRecord::Schema.define(version: 2020_08_03_152339) do
 
   create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -48,14 +48,14 @@ ActiveRecord::Schema.define(version: 2020_07_27_193043) do
   end
 
   create_table "permissaos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "usuarios_id"
-    t.bigint "salas_id"
-    t.bigint "perfils_id"
+    t.bigint "usuario_id"
+    t.bigint "sala_id"
+    t.bigint "perfil_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["perfils_id"], name: "index_permissaos_on_perfils_id"
-    t.index ["salas_id"], name: "index_permissaos_on_salas_id"
-    t.index ["usuarios_id"], name: "index_permissaos_on_usuarios_id"
+    t.index ["perfil_id"], name: "index_permissaos_on_perfil_id"
+    t.index ["sala_id"], name: "index_permissaos_on_sala_id"
+    t.index ["usuario_id"], name: "index_permissaos_on_usuario_id"
   end
 
   create_table "salas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -64,10 +64,9 @@ ActiveRecord::Schema.define(version: 2020_07_27_193043) do
     t.boolean "permissaoauto"
     t.text "observacao"
     t.boolean "confirmacao"
-    t.bigint "agendas_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["agendas_id"], name: "index_salas_on_agendas_id"
+    t.integer "agenda_id"
   end
 
   create_table "tipo_vinculos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -101,9 +100,8 @@ ActiveRecord::Schema.define(version: 2020_07_27_193043) do
 
   add_foreign_key "inscricaos", "agendas"
   add_foreign_key "inscricaos", "usuarios"
-  add_foreign_key "permissaos", "perfils", column: "perfils_id"
-  add_foreign_key "permissaos", "salas", column: "salas_id"
-  add_foreign_key "permissaos", "usuarios", column: "usuarios_id"
-  add_foreign_key "salas", "agendas", column: "agendas_id"
+  add_foreign_key "permissaos", "perfils"
+  add_foreign_key "permissaos", "salas"
+  add_foreign_key "permissaos", "usuarios"
   add_foreign_key "tipo_vinculos", "usuarios"
 end

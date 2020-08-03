@@ -1,3 +1,3 @@
 class Sala < ApplicationRecord
-  belongs_to :agendas
+  belongs_to :agenda
 end
