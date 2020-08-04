@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get 'inscricao/:id' => 'agendas#inscricao', as: 'inscricao'
 
+  get 'versalas/:id' => 'salas#versalas', as: 'versalas'
+
   root 'welcome#login'
 
   

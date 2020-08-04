@@ -1,6 +1,12 @@
 class SalasController < ApplicationController
   before_action :set_sala, only: [:show, :edit, :update, :destroy]
 
+  def versalas
+    @agenda = params[:id]
+
+    @salas = Sala.where(agenda_id: @agenda)
+
+  end   
   # GET /salas
   # GET /salas.json
   def index

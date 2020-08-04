@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cor</th>
+      <th>Permissaoauto</th>
+      <th>Observacao</th>
+      <th>Confirmacao</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @salas.each do |sala| %>
+      <tr>
+        <td><%= sala.nome %></td>
+        <td><%= sala.cor %></td>
+        <td><%= sala.permissaoauto %></td>
+        <td><%= sala.observacao %></td>
+        <td><%= sala.confirmacao %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
