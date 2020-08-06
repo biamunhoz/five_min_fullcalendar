@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'versalas/:id' => 'salas#versalas', as: 'versalas'
 
+  get 'permissao/:id' => 'salas#permissao', as: 'permissao'
+
   root 'welcome#login'
 
   

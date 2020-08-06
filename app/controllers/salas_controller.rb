@@ -3,10 +3,22 @@ class SalasController < ApplicationController
 
   def versalas
     @agenda = params[:id]
-
     @salas = Sala.where(agenda_id: @agenda)
-
   end   
+
+  def permissao
+    @sala = params[:id]
+
+    @permitidos = Permissao.where(sala_id: @sala)
+
+    #	select * from usuarios where id not in (select usuario_id from permissaos)
+
+    @usuarios = Permissao.includes(:usuarios).where(sala_id: @sala).select("usuario_id")
+
+    @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?)', @usuarios).select("nomeUsuario, emailUspUsuario, tipoVinculo, nomeSetor, siglaUnidade")
+
+  end 
+
   # GET /salas
   # GET /salas.json
   def index

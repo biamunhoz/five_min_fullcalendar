@@ -1,0 +1,45 @@
+<h1>Permitidos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>sala_id</th>
+            <th>usuario_id</th>
+            <th>Usuario</th>
+            <th>perfil_id</th>
+        </tr>
+    </thead>
+  <tbody>
+    <% @permitidos.each do |p| %>
+        <tr>
+            <td><%= p.sala_id %></td>
+            <td><%= p.usuario_id %></td>
+            <td><%= p.nomeUsuario %> </td>
+            <td><%= p.perfil_id %></td>      
+        </tr>
+    <% end %>
+  </tbody>
+</table>    
+
+<h1>Nao incluidos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Vinculo</th>
+            <th>Setor</th>
+            <th>Unidade</th>
+        </tr>
+    </thead>
+  <tbody>
+    <% @negados.each do |n| %>
+        <tr>
+            <td><%= n.nomeUsuario %> </td>
+            <td><%= n.tipoVinculo %> </td>
+            <td><%= n.nomeSetor %> </td>
+            <td><%= n.siglaUnidade %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table> 
