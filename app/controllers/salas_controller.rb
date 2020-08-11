@@ -9,15 +9,55 @@ class SalasController < ApplicationController
   def permissao
     @sala = params[:id]
 
-    @permitidos = Permissao.where(sala_id: @sala)
+    @permitidos = Permissao.joins(:usuario).joins(:perfil).where(sala_id: @sala).select("usuario_id, nomeUsuario, emailUspUsuario, sala_id, nomeperfil")
 
-    #	select * from usuarios where id not in (select usuario_id from permissaos)
+    @usuarios = Permissao.where(sala_id: @sala).select("usuario_id")
 
-    @usuarios = Permissao.includes(:usuarios).where(sala_id: @sala).select("usuario_id")
-
-    @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?)', @usuarios).select("nomeUsuario, emailUspUsuario, tipoVinculo, nomeSetor, siglaUnidade")
+    @negados = Usuario.joins(:tipo_vinculos).where('usuarios.id not in (?)', @usuarios).select("usuarios.id, nomeUsuario, emailUspUsuario, tipoVinculo, nomeSetor, siglaUnidade")
 
   end 
+
+  def salvaperfil(perfil, sala, user)
+    
+    @permissao = Permissao.find_by(sala_id: sala, usuario_id: user)
+
+    if @permissao.nil?
+      @p = Permissao.new
+      @p.usuario_id = user
+      @p.sala_id = sala
+      @p.perfil_id = perfil
+
+      @p.save!
+    
+      return true 
+    else
+      @permissao.perfil_id = @perfil 
+      @permissao.save!
+
+      return false
+    end 
+    
+  end
+
+  def addadmin
+ 
+    @perfil = Perfil.find_by(:nomeperfil => 'Admin').id
+
+    @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+
+  end 
+
+  def altersuper
+    @perfil = Perfil.find_by(:nomeperfil => 'Supervisor').id
+
+    @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+  end  
+
+  def altersimples
+    @perfil = Perfil.find_by(:nomeperfil => 'Simples').id
+
+    @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+  end   
 
   # GET /salas
   # GET /salas.json

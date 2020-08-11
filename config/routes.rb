@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
-  #get 'welcome/login'
+  #login e logout
   get 'welcome/login', as: 'login'
   get 'welcome/callback'
+  get 'logout' => 'welcome#destroy', as: 'logout'
   
   resources :perfils
   resources :tipo_vinculos
@@ -12,15 +13,14 @@ Rails.application.routes.draw do
   resources :events
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  #root 'events#index'
-
-  get 'logout' => 'welcome#destroy', as: 'logout'
-
+  #inscricao e permissao
   get 'inscricao/:id' => 'agendas#inscricao', as: 'inscricao'
-
   get 'versalas/:id' => 'salas#versalas', as: 'versalas'
-
   get 'permissao/:id' => 'salas#permissao', as: 'permissao'
+
+  get 'addadmin/:id/sala=:sala' => 'salas#addadmin', as: 'addadmin'
+  get 'altersuper/:id/sala=:sala' => 'salas#altersuper', as: 'altersuper'
+  get 'altersimples/:id/sala=:sala' => 'salas#altersimples', as: 'altersimples'
 
   root 'welcome#login'
 

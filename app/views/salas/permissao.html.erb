@@ -1,21 +1,28 @@
 <h1>Permitidos</h1>
-
+<% @sala_atual = @sala%>
 <table>
     <thead>
         <tr>
-            <th>sala_id</th>
-            <th>usuario_id</th>
             <th>Usuario</th>
-            <th>perfil_id</th>
+            <th>Perfil Atual</th>
+            <th colspan="2">Trocar para ?</th>
         </tr>
     </thead>
   <tbody>
     <% @permitidos.each do |p| %>
         <tr>
-            <td><%= p.sala_id %></td>
-            <td><%= p.usuario_id %></td>
             <td><%= p.nomeUsuario %> </td>
-            <td><%= p.perfil_id %></td>      
+            <td><%= p.nomeperfil %></td>  
+            <% if p.nomeperfil == 'Admin' %>
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>                        
+            <% elsif p.nomeperfil == 'Supervisor' %>
+                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>
+                <td><%= link_to 'Simples', altersimples_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>                        
+            <% elsif p.nomeperfil == 'Simples' %>
+                <td><%= link_to 'Supervisor', altersuper_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>   
+                <td><%= link_to 'Admin', addadmin_path(:id => p.usuario_id, :sala => p.sala_id) %> </td>            
+            <% end %>
         </tr>
     <% end %>
   </tbody>
@@ -30,6 +37,7 @@
             <th>Vinculo</th>
             <th>Setor</th>
             <th>Unidade</th>
+            <th colspan="3">Cadastrar como </th>
         </tr>
     </thead>
   <tbody>
@@ -39,6 +47,9 @@
             <td><%= n.tipoVinculo %> </td>
             <td><%= n.nomeSetor %> </td>
             <td><%= n.siglaUnidade %></td>
+            <td><%= link_to 'Admin', addadmin_path(:id => n.id, :sala => @sala_atual) %> </td>
+            <td><%= link_to 'Supervisor', altersuper_path(:id => n.id, :sala => @sala_atual) %> </td>
+            <td><%= link_to 'Simples', altersimples_path(:id => n.id, :sala => @sala_atual) %> </td>            
         </tr>
     <% end %>
   </tbody>
