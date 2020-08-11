@@ -12,27 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :nome %>
+    <%= form.label :nome, 'Nome' %>
     <%= form.text_field :nome %>
   </div>
 
   <div class="field">
-    <%= form.label :apresentacaotelaini %>
+    <%= form.label :apresentacaotelaini, 'Apresenta na tela inicial' %>
     <%= form.check_box :apresentacaotelaini %>
   </div>
 
   <div class="field">
-    <%= form.label :tipo,'Selecione o tipo de agenda' %><br>
+    <%= form.label :tipo,'Selecione o tipo de agenda' %>
     <%= form.select :tipo,([['Publica'],['Privada']]) %>
   </div>
 
 
   <div class="field">
-    <%= form.label :observacao %>
+    <%= form.label :observacao, 'Observaçoes gerais' %>
     <%= form.text_field :observacao %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Salvar' %>
   </div>
 <% end %>

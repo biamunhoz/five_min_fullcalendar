@@ -5,15 +5,15 @@
 <table>
   <thead>
     <tr>
-      <th>Nomeusuario</th>
-      <th>Loginusuario</th>
-      <th>Tipousuario</th>
-      <th>Emailprincipalusuario</th>
-      <th>Emailalternativousuario</th>
-      <th>Emailuspusuario</th>
-      <th>Numerotelefoneformatado</th>
-      <th>Ramalusp</th>
-      <th colspan="3"></th>
+      <th>Nome</th>
+      <th>Login</th>
+      <th>Tipo do usuario</th>
+      <th>E-mail principal</th>
+      <th>E-mail alternativo</th>
+      <th>E-mail USP </th>
+      <th>Telefone</th>
+      <th>Ramal</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -28,9 +28,7 @@
         <td><%= usuario.emailUspUsuario %></td>
         <td><%= usuario.numeroTelefoneFormatado %></td>
         <td><%= usuario.ramalUsp %></td>
-        <td><%= link_to 'Show', usuario %></td>
-        <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
-        <td><%= link_to 'Destroy', usuario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Mostrar', usuario %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +36,3 @@
 
 <br>
 
-<%= link_to 'New Usuario', new_usuario_path %>

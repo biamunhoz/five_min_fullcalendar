@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Agendas</h1>
+<h1>Agendas ICB</h1>
 
 <table>
   <thead>
     <tr>
       <th>Nome</th>
-      <th>Apresentacaotelaini</th>
+      <th>Apresenta na tela inicial</th>
       <th>Observacao</th>
       <th>Tipo</th>
       <th></th>     
@@ -24,11 +24,11 @@
         <td><%= agenda.apresentacaotelaini %></td>
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
-        <td><%= link_to "Inscriçao", inscricao_path(agenda) %> </td>
-        <td><%= link_to "Salas", versalas_path(agenda) %> </td>
-        <td><%= link_to 'Show', agenda %></td>
-        <td><%= link_to 'Edit', edit_agenda_path(agenda) %></td>
-        <td><%= link_to 'Destroy', agenda, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Inscriçao', inscricao_path(agenda) %> </td>
+        <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
+        <td><%= link_to 'Mostrar', agenda %></td>
+        <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
+        <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Voce tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Agenda', new_agenda_path %>
+<%= link_to 'Nova Agenda', new_agenda_path %>

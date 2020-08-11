@@ -6,7 +6,7 @@
 </p>
 
 <p>
-  <strong>Apresentacaotelaini:</strong>
+  <strong>Apresentar na tela inicial:</strong>
   <%= @agenda.apresentacaotelaini %>
 </p>
 
@@ -16,9 +16,9 @@
 </p>
 
 <p>
-  <strong>Tipo:</strong>
+  <strong>Tipo de agenda:</strong>
   <%= @agenda.tipo %>
 </p>
 
-<%= link_to 'Edit', edit_agenda_path(@agenda) %> |
-<%= link_to 'Back', agendas_path %>
+<%= link_to 'Editar', edit_agenda_path(@agenda) %> |
+<%= link_to 'Voltar', :back %>
