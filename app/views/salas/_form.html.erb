@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label :agenda_id %>
-    <%= form.text_field :agenda_id %>
+    <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
   </div>
 
   <div class="actions">

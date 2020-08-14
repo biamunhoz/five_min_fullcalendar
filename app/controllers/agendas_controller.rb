@@ -26,6 +26,7 @@ class AgendasController < ApplicationController
         @insc.agenda_id = @agenda
         @insc.save!
 
+        addpermissao(@agenda, current_user.id)
         @confirmado = true
 
       else
@@ -34,6 +35,23 @@ class AgendasController < ApplicationController
     end  
     
   end  
+
+  ### Adiciona usuario em salas com permissao automatica
+  def addpermissao(agenda, usuario)
+
+    @salas = Salas.where(agenda_id: agenda, permissaoauto: true)
+
+    @salas.each do |s|
+
+      @p = Permissao.new
+      @p.usuario_id = usuario
+      @p.sala_id = s.id
+      @p.perfil_id = Perfil.find_by(:nomeperfil => 'Simples').id
+
+      @p.save!
+    end 
+
+  end
 
   # GET /agendas/1
   # GET /agendas/1.json

@@ -86,6 +86,12 @@ class SalasController < ApplicationController
 
     respond_to do |format|
       if @sala.save
+
+        if @sala.permissaoauto == true 
+          puts "Permissao automatica OKOKOKOKOKOKOKOKOK"
+          addpermissao(@sala.agenda_id, @sala.id)
+        end 
+
         format.html { redirect_to @sala, notice: 'Sala was successfully created.' }
         format.json { render :show, status: :created, location: @sala }
       else
@@ -95,11 +101,29 @@ class SalasController < ApplicationController
     end
   end
 
+#### Nova sala com permissao automatica
+  def addpermissao(agenda, sala)
+    @insc = Inscricao.where(agenda_id: agenda).select('usuario_id') 
+
+    @insc.each do |i|
+      @p = Permissao.new
+      @p.usuario_id = i.usuario_id
+      @p.sala_id = sala
+      @p.perfil_id = Perfil.find_by(:nomeperfil => 'Simples').id
+
+      @p.save!
+    end  
+
+  end  
+
   # PATCH/PUT /salas/1
   # PATCH/PUT /salas/1.json
   def update
     respond_to do |format|
       if @sala.update(sala_params)
+        if @sala.permissaoauto == true
+          alterpermissao(@sala.id, @sala.agenda_id)
+        end  
         format.html { redirect_to @sala, notice: 'Sala was successfully updated.' }
         format.json { render :show, status: :ok, location: @sala }
       else
@@ -108,6 +132,27 @@ class SalasController < ApplicationController
       end
     end
   end
+
+### Alteraçao de sala 
+  def alterpermissao(sala, agenda)
+    @insc = Inscricao.where(agenda_id: agenda).select('usuario_id') 
+
+    @insc.each do |i|
+    
+      @permissao = Permissao.find_by(sala_id: sala, usuario_id: i.usuario_id)
+
+      if @permissao.nil?
+        @p = Permissao.new
+        @p.usuario_id = i.usuario_id
+        @p.sala_id = sala
+        @p.perfil_id = Perfil.find_by(:nomeperfil => 'Simples').id
+  
+        @p.save!
+      end 
+
+    end  
+
+  end  
 
   # DELETE /salas/1
   # DELETE /salas/1.json
