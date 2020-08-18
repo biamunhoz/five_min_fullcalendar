@@ -6,18 +6,13 @@
 </p>
 
 <p>
-  <strong>String:</strong>
-  <%= @event.string %>
+  <strong>Descriçao:</strong>
+  <%= @event.descricao %>
 </p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @event.body %>
-</p>
-
-<p>
-  <strong>String:</strong>
-  <%= @event.string %>
+  <strong>Registrado para:</strong>
+  <%= @event.registropara %>
 </p>
 
 <p>
@@ -26,8 +21,8 @@
 </p>
 
 <p>
-  <strong>Datetime:</strong>
-  <%= @event.datetime %>
+  <strong>Hora inicial:</strong>
+  <%= @event.timeini %>
 </p>
 
 <p>
@@ -36,8 +31,8 @@
 </p>
 
 <p>
-  <strong>Datetime:</strong>
-  <%= @event.datetime %>
+  <strong>Hora final:</strong>
+  <%= @event.timefim %>
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

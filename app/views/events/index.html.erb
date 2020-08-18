@@ -6,9 +6,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>String</th>
-      <th>Body</th>
-      <th>String</th>
       <th>Start date</th>
       <th>Datetime</th>
       <th>End date</th>
@@ -21,13 +18,10 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= event.title %></td>
-        <td><%= event.string %></td>
-        <td><%= event.body %></td>
-        <td><%= event.string %></td>
         <td><%= event.start_date %></td>
-        <td><%= event.datetime %></td>
+        <td><%= event.timeini %></td>
         <td><%= event.end_date %></td>
-        <td><%= event.datetime %></td>
+        <td><%= event.timefim %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -17,18 +17,18 @@
   </div>
 
   <div class="field">
-    <%= form.label :string %>
-    <%= form.text_field :string %>
+    <%= form.label :descricao %>
+    <%= form.text_field :descricao %>
   </div>
 
   <div class="field">
-    <%= form.label :body %>
-    <%= form.text_field :body %>
+    <%= form.label :registropara %>
+    <%= form.text_field :registropara %>
   </div>
 
   <div class="field">
-    <%= form.label :string %>
-    <%= form.text_field :string %>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
   </div>
 
   <div class="field">
@@ -37,8 +37,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :datetime %>
-    <%= form.text_field :datetime %>
+    <%= form.label :timeini %>
+    <%= form.text_field :timeini %>
   </div>
 
   <div class="field">
@@ -47,11 +47,56 @@
   </div>
 
   <div class="field">
-    <%= form.label :datetime %>
-    <%= form.text_field :datetime %>
+    <%= form.label :timefim %>
+    <%= form.text_field :timefim %>
+  </div>
+
+  <div class="field">
+    <%= form.label :domingo %>
+    <%= form.check_box :domingo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :segunda %>
+    <%= form.check_box :segunda %>
+  </div>
+
+  <div class="field">
+    <%= form.label :terca %>
+    <%= form.check_box :terca %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quarta %>
+    <%= form.check_box :quarta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quinta %>
+    <%= form.check_box :quinta %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sexta %>
+    <%= form.check_box :sexta %>
+  </div>    
+
+  <div class="field">
+    <%= form.label :sabado %>
+    <%= form.check_box :sabado %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :sala_id %>
+    <%= form.select("sala_id", Sala.all.collect {|a| [ a.nome, a.id ] })  %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+
+    t.string "registropara"
+
+

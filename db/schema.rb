@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_03_152339) do
+ActiveRecord::Schema.define(version: 2020_08_17_181035) do
 
   create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -23,13 +23,25 @@ ActiveRecord::Schema.define(version: 2020_08_03_152339) do
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "string"
-    t.string "body"
     t.string "start_date"
     t.string "datetime"
     t.string "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "descricao"
+    t.boolean "domingo"
+    t.boolean "segunda"
+    t.boolean "terca"
+    t.boolean "quarta"
+    t.boolean "quinta"
+    t.boolean "sexta"
+    t.boolean "sabado"
+    t.boolean "pendente"
+    t.string "registropara"
+    t.integer "sala_id"
+    t.integer "usuario_id"
+    t.string "timeini"
+    t.string "timefim"
   end
 
   create_table "inscricaos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
