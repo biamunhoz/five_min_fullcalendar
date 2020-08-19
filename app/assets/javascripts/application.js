@@ -17,6 +17,7 @@
 //= require jquery
 //= require moment
 //= require fullcalendar
+//= require fullcalendar/locale-all
 
 $(function () {
     function eventCalendar() {
@@ -32,8 +33,44 @@ $(function () {
     });
     $(document).on('turbolinks:before-cache', clearCalendar);
 
+    /*
     $('#calendar').fullCalendar({
         events: '/events.json'
     });
+    */
+
+    $('#calendar').fullCalendar({
+        locale: 'pt-br',
+        events: '/events.json',
+        titleFormat: 'MMMM YYYY ',
+
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+
+        header: {
+            left: '',
+            center: 'title',
+            right: 'today prev,next'
+        },
+
+        defaultTimedEventDuration: '03:00:00',
+        buttonText: {
+            prev: '<<',
+            next: '>>',
+            prevYear: '>>>>',
+            nextYear: '<<<<',
+            today: 'Hoje',
+            month: 'M',
+            week: 'Semanal',
+            day: 'D'
+        },
+
+        timeFormat: "HH:mm",
+
+        eventColor: '#ef63b9',
+
+        eventTextColor: '#000000',
+    });
 
 });
+
+
