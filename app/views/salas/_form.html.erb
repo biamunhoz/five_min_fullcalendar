@@ -12,36 +12,36 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :nome %>
+    <%= form.label :nome, "Nome" %>
     <%= form.text_field :nome %>
   </div>
 
   <div class="field">
-    <%= form.label :cor %>
+    <%= form.label :cor, "Cor de identificaçao" %>
     <%= form.text_field :cor %>
   </div>
 
   <div class="field">
-    <%= form.label :permissaoauto %>
+    <%= form.label :permissaoauto, "Permissao automatica" %>
     <%= form.check_box :permissaoauto %>
   </div>
 
   <div class="field">
-    <%= form.label :observacao %>
+    <%= form.label :observacao, "Observaçao" %>
     <%= form.text_area :observacao %>
   </div>
 
   <div class="field">
-    <%= form.label :confirmacao %>
+    <%= form.label :confirmacao, "Confirmaçao" %>
     <%= form.check_box :confirmacao %>
   </div>
 
   <div class="field">
-    <%= form.label :agenda_id %>
+    <%= form.label :agenda_id, "Vincular na agenda" %>
     <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Salvar" %>
   </div>
 <% end %>

@@ -7,7 +7,7 @@
     <tr>
       <th>Nome</th>
       <th>Cor</th>
-      <th>Permissaoauto</th>
+      <th>Permissao Automatica</th>
       <th>Observacao</th>
       <th>Confirmacao</th>
       <th>Agendas</th>
@@ -24,9 +24,9 @@
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao %></td>
         <td><%= sala.agenda.nome %></td>
-        <td><%= link_to 'Show', sala %></td>
-        <td><%= link_to 'Edit', edit_sala_path(sala) %></td>
-        <td><%= link_to 'Destroy', sala, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Mostrar', sala %></td>
+        <td><%= link_to 'Editar', edit_sala_path(sala) %></td>
+        <td><%= link_to 'Apagar', sala, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Sala', new_sala_path %>
+<%= link_to 'Nova Sala', new_sala_path %>

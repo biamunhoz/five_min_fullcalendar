@@ -66,7 +66,7 @@ $(function () {
 
         timeFormat: "HH:mm",
 
-        eventColor: '#ef63b9',
+        /*eventColor: '#ef63b9',*/
 
         eventTextColor: '#000000',
     });
