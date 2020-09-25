@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_181035) do
+ActiveRecord::Schema.define(version: 2020_09_10_154129) do
+
+  create_table "agendamentos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.date "data_inicio"
+    t.date "data_fim"
+    t.time "hora_inicio"
+    t.time "hora_fim"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_agendamentos_on_event_id"
+  end
 
   create_table "agendas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nome"
@@ -110,6 +121,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_181035) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "agendamentos", "events"
   add_foreign_key "inscricaos", "agendas"
   add_foreign_key "inscricaos", "usuarios"
   add_foreign_key "permissaos", "perfils"

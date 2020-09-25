@@ -20,23 +20,73 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
   end
-
+  
   # POST /events
   # POST /events.json
   def create
     @event = Event.new(event_params)
 
     respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
+        if @event.save
+
+          horaini = @event.timeini.to_time
+          horafim = @event.timefim.to_time
+  
+          diaini = @event.start_date.to_date
+          diafim = @event.end_date.to_date
+    
+          diaini.upto(diafim) do |day|
+            case day.wday       
+              when 0
+                if @event.domingo == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "111111111111111111111111111"
+                end   
+              when 1
+                if @event.segunda == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "2222222222222222222222222222"
+                end               
+              when 2 
+                if @event.terca == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "3333333333333333333333333"
+                end
+              when 3 
+                if @event.quarta == true                  
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "444444444444444444444444444444444444"
+                end
+              when 4 
+                if @event.quinta == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "555555555555555555555555"
+                end
+              when 5 
+                if @event.sexta == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "666666666666666666666666"
+                end
+              when 6 
+                if @event.sabado == true
+                  salvaAgendamento(day, day, horaini, horafim, @event.id)
+                  print "7777777777777777777777777777777"
+                end             
+              end
+            
+          end
+  
+          format.html { redirect_to @event, notice: 'Event was successfully created.' }
+          format.json { render :show, status: :created, location: @event }
+        else
+          format.html { render :new }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end 
+      end      
+      
+  end
+ 
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
@@ -60,6 +110,23 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+  def salvaAgendamento(start_date, end_date, horaini, horafim, event_id)
+
+
+    @ag = Agendamento.new
+    @ag.data_inicio = start_date
+    @ag.data_fim = end_date
+    @ag.hora_inicio = horaini
+    @ag.hora_fim = horafim
+    @ag.event_id = event_id
+
+    @ag.save!
+
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

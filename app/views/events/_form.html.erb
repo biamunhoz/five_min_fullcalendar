@@ -27,11 +27,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
     <%= form.label :start_date %>
     <%= form.text_field :start_date %>
   </div>
@@ -51,6 +46,11 @@
     <%= form.text_field :timefim %>
   </div>
 
+  <div class="field">
+    <%= form.label :sala_id %>
+    <%= form.select("sala_id", Sala.all.collect {|a| [ a.nome, a.id ] })  %>
+  </div>
+  
   <div class="field">
     <%= form.label :domingo %>
     <%= form.check_box :domingo %>
@@ -85,18 +85,9 @@
     <%= form.label :sabado %>
     <%= form.check_box :sabado %>
   </div>  
-
-  <div class="field">
-    <%= form.label :sala_id %>
-    <%= form.select("sala_id", Sala.all.collect {|a| [ a.nome, a.id ] })  %>
-  </div>
-
+ 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
-
-
-    t.string "registropara"
-
 

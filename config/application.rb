@@ -18,6 +18,12 @@ module FiveMinFullcalendar
       end if File.exists?(env_file)
     end
 
+    #config.time_zone = 'Eastern Time (US & Canada)'
+    #config.active_record.default_timezone = :local  
+
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = 'Brasilia'
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
