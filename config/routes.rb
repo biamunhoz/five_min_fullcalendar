@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get 'altersuper/:id/sala=:sala' => 'salas#altersuper', as: 'altersuper'
   get 'altersimples/:id/sala=:sala' => 'salas#altersimples', as: 'altersimples'
 
+  get 'listagem' => 'events#listagem', as: 'listagem'
+
+  get 'agendamentos/:id' => 'events#agendamentos', as: 'agendamentos'
+  get 'deleteagend/:id' => 'events#deleteagend', as: 'deleteagend'
+
   root 'welcome#login'
 
   

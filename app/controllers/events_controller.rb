@@ -4,7 +4,41 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all    
+
+    @events = Event.joins(:agendamentos).all.select("events.id, Concat(events.title,' - ' ,events.registropara) as title, events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
+
+=begin
+    json.array!(@events) do |event|
+      json.extract! event, :id, :title   
+      json.start event.start_date   
+      json.end event.end_date   
+      json.url event_url(event, format: :html) 
+      json.backgroundColor '#9297dd'
+      json.borderColor '#9297dd'
+    end
+=end
+  end
+
+  def listagem
+    @events = Event.all
+  end
+
+  def agendamentos
+
+    @agendamentos = Agendamento.where(event_id: params[:id])
+
+  end
+
+  def deleteagend
+
+    @agendamento = Agendamento.find(params[:id])
+    @agendamento.destroy
+
+    respond_to do |format|
+      format.html { redirect_to events_url, notice: 'Agendamento na data escolhida apagado.' }
+      format.json { head :no_content }
+    end
+
   end
 
   # GET /events/1

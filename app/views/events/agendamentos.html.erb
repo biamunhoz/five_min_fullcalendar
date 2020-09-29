@@ -1,0 +1,28 @@
+<h1>Events</h1>
+
+<table>
+  <thead>
+    <tr>
+
+      <th>Data inicial </th>
+      <th>Hora inicial </th>
+      <th>Data final </th>
+      <th>Hora final</th>
+      <th>Excluir</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agendamentos.each do |a| %>
+      <tr>
+        <td><%= a.data_inicio.strftime("%d/%m/%Y") %></td>
+        <td><%= a.hora_inicio.strftime("%H:%M") %></td>
+        <td><%= a.data_fim.strftime("%d/%m/%Y") %></td>
+        <td><%= a.hora_fim.strftime("%H:%M") %></td>
+        <td><%= link_to 'Excluir', deleteagend_path(a), data: { confirm: 'Essa açao ira apagar somente este agendamento do evento. Voce tem certeza ?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
