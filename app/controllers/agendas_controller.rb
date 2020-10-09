@@ -4,15 +4,13 @@ class AgendasController < ApplicationController
   # GET /agendas
   # GET /agendas.json
   def index
-    @agendas = Agenda.all
+    @agendas = carrega_agendas
   end
 
   def inscricao
 
-    if session[:login] == nil
-      
+    if session[:login] == nil      
       redirect_to login_path
-
     else  
 
       @agenda = params[:id]

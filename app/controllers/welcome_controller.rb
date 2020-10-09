@@ -40,13 +40,11 @@ class WelcomeController < ApplicationController
 
     #10. @data tem os dados 
 
-    @agendas = Agenda.all
-
     loginUsuario = tratauser
 
     log_in loginUsuario
 
-   
+    @agendas = carrega_agendas
 
   end
 

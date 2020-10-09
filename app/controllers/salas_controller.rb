@@ -62,7 +62,7 @@ class SalasController < ApplicationController
   # GET /salas
   # GET /salas.json
   def index
-    @salas = Sala.all
+    @salas = carrega_salas
   end
 
   # GET /salas/1
