@@ -27,13 +27,20 @@
         <td><%= link_to 'Inscriçao', inscricao_path(agenda) %> </td>
         <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
         <td><%= link_to 'Mostrar', agenda %></td>
-        <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
-        <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Voce tem certeza?' } %></td>
+
+        <% if session[:admingeral] == true %>
+          <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
+          <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Voce tem certeza?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<%= session[:admingeral] %>
 
-<%= link_to 'Nova Agenda', new_agenda_path %>
+<br>
+<% if session[:admingeral] == true %>
+  <%= link_to 'Nova Agenda', new_agenda_path %>
+<% end %>
