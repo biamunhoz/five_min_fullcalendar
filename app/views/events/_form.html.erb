@@ -48,7 +48,7 @@
 
   <div class="field">
     <%= form.label :sala_id %>
-    <%= form.select("sala_id", Sala.all.collect {|a| [ a.nome, a.id ] })  %>
+    <%= form.select("sala_id", Sala.where("id in (?)", @salas).collect {|a| [ a.nome, a.id ] })  %>
   </div>
   
   <div class="field">
