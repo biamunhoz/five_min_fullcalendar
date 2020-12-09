@@ -71,6 +71,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @salas = salaspermitidas
   end
   
   # POST /events

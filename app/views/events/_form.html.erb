@@ -12,82 +12,82 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <%= form.label :title, "Titulo" %>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :descricao %>
+    <%= form.label :descricao, "Descriçao" %>
     <%= form.text_field :descricao %>
   </div>
 
   <div class="field">
-    <%= form.label :registropara %>
+    <%= form.label :registropara, "Registrado para" %>
     <%= form.text_field :registropara %>
   </div>
 
   <div class="field">
-    <%= form.label :start_date %>
-    <%= form.text_field :start_date %>
+    <%= form.label :start_date, "Data inicial" %>
+    <%= form.date_select :start_date %>
   </div>
 
   <div class="field">
-    <%= form.label :timeini %>
-    <%= form.text_field :timeini %>
+    <%= form.label :timeini, "Horario inicial" %>
+    <%= form.time_select :timeini %>
   </div>
 
   <div class="field">
-    <%= form.label :end_date %>
-    <%= form.text_field :end_date %>
+    <%= form.label :end_date, "Data final" %>
+    <%= form.date_select :end_date %>
   </div>
 
   <div class="field">
-    <%= form.label :timefim %>
-    <%= form.text_field :timefim %>
+    <%= form.label :timefim, "Horario final" %>
+    <%= form.time_select :timefim %>
   </div>
 
   <div class="field">
-    <%= form.label :sala_id %>
+    <%= form.label :sala_id, "Sala" %>
     <%= form.select("sala_id", Sala.where("id in (?)", @salas).collect {|a| [ a.nome, a.id ] })  %>
   </div>
   
   <div class="field">
-    <%= form.label :domingo %>
+    <%= form.label :domingo, "Domingo" %>
     <%= form.check_box :domingo %>
   </div>
 
   <div class="field">
-    <%= form.label :segunda %>
+    <%= form.label :segunda, "Segunda-feira" %>
     <%= form.check_box :segunda %>
   </div>
 
   <div class="field">
-    <%= form.label :terca %>
+    <%= form.label :terca, "Terça-feira" %>
     <%= form.check_box :terca %>
   </div>
 
   <div class="field">
-    <%= form.label :quarta %>
+    <%= form.label :quarta, "Quarta-feira" %>
     <%= form.check_box :quarta %>
   </div>
 
   <div class="field">
-    <%= form.label :quinta %>
+    <%= form.label :quinta, "Quinta-feira" %>
     <%= form.check_box :quinta %>
   </div>
 
   <div class="field">
-    <%= form.label :sexta %>
+    <%= form.label :sexta, "Sexta-feira" %>
     <%= form.check_box :sexta %>
   </div>    
 
   <div class="field">
-    <%= form.label :sabado %>
+    <%= form.label :sabado, "Sabado" %>
     <%= form.check_box :sabado %>
   </div>  
  
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Salvar" %>
   </div>
 <% end %>
 
