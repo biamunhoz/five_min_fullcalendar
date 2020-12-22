@@ -21,8 +21,11 @@ module FiveMinFullcalendar
     #config.time_zone = 'Eastern Time (US & Canada)'
     #config.active_record.default_timezone = :local  
 
-    config.time_zone = 'Brasilia'
-    config.active_record.default_timezone = 'Brasilia'
+    #config.time_zone = 'Brasilia'
+    #config.active_record.default_timezone = 'Brasilia'
+
+    config.i18n.default_locale = "pt-BR"
+
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

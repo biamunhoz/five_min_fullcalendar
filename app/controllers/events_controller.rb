@@ -73,7 +73,7 @@ class EventsController < ApplicationController
   def edit
     @salas = salaspermitidas
   end
-  
+
   # POST /events
   # POST /events.json
   def create
