@@ -21,6 +21,7 @@
 
 $(function () {
     function eventCalendar() {
+        console.log("passando em eventCalendario");
         return $('#calendar').fullCalendar({});
     };
     function clearCalendar() {
@@ -42,6 +43,39 @@ $(function () {
     $('#calendar').fullCalendar({
         locale: 'pt-br',
         events: '/events.json',
+        titleFormat: 'MMMM YYYY ',
+
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+
+        header: {
+            left: '',
+            center: 'title',
+            right: 'today prev,next'
+        },
+
+        defaultTimedEventDuration: '03:00:00',
+        buttonText: {
+            prev: '<<',
+            next: '>>',
+            prevYear: '>>>>',
+            nextYear: '<<<<',
+            today: 'Hoje',
+            month: 'M',
+            week: 'Semanal',
+            day: 'D'
+        },
+
+        timeFormat: "HH:mm",
+
+        /*eventColor: '#ef63b9',*/
+
+        eventTextColor: '#000000',
+    });
+
+
+    $('#calendario').fullCalendar({
+        locale: 'pt-br',
+        events: '/resultagenda.json',
         titleFormat: 'MMMM YYYY ',
 
         dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],

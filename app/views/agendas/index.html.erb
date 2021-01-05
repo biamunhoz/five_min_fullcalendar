@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Agendas ICB</h1>
+<h1>Minhas Agendas ICB</h1>
 
 <table>
   <thead>
@@ -13,7 +13,10 @@
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
+      <% if session[:admingeral] == true %>
+        <th></th>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -26,7 +29,8 @@
         <td><%= agenda.tipo %></td>
         <td><%= link_to 'Inscriçao', inscricao_path(agenda) %> </td>
         <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
-        <td><%= link_to 'Mostrar', agenda %></td>
+        <td><%= link_to 'Informaçoes', agenda %></td>
+        <td><%= link_to 'Calendario', eventoagenda_path(agenda) %>  </td>
 
         <% if session[:admingeral] == true %>
           <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
@@ -38,7 +42,6 @@
 </table>
 
 <br>
-<%= session[:admingeral] %>
 
 <br>
 <% if session[:admingeral] == true %>

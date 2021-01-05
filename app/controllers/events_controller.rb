@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
   # GET /events
   # GET /events.json
+
   def index
 
     @events = Event.joins(:agendamentos).where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
@@ -40,6 +40,32 @@ class EventsController < ApplicationController
 
   end
 
+  def salaselecionada(sala)
+ 
+    @salas = Sala.where(agenda_id: sala)
+    salaselecionada  = Array.new
+
+    @salas.each do |a|
+      salaselecionada << a.id
+    end
+
+    return salaselecionada
+  end
+
+  def eventoagenda
+   
+    @@salamostrar = salaselecionada(params[:id])
+
+  end 
+
+  def resultagenda
+    
+    @events = Event.joins(:agendamentos).where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
+    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
+
+  end
+
   def agendamentos
 
     @agendamentos = Agendamento.where(event_id: params[:id])
@@ -73,6 +99,7 @@ class EventsController < ApplicationController
   def edit
     @salas = salaspermitidas
   end
+
 
   # POST /events
   # POST /events.json
