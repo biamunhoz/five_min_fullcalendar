@@ -1,4 +1,10 @@
 <%= link_to 'Novo Evento', new_event_path %>
 
-<!--p>@edueventos</p-->
+<% @dadosagenda.each do |agenda| %>
+    <h3>Agenda - <%= agenda.nome %></h3> 
+    <p>Dados da agenda: <%= agenda.observacao %></p>
+<% end %>
+
+<br>
+
 <div id="calendario"></div>

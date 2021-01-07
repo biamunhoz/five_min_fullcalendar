@@ -54,8 +54,12 @@ class EventsController < ApplicationController
 
   def eventoagenda
    
-    @@salamostrar = salaselecionada(params[:id])
-
+    @agendasel = params[:id]
+    #@@salamostrar = salaselecionada(params[:id])
+    @@salamostrar = salaselecionada(@agendasel)
+    
+    @dadosagenda = Agenda.where(:id => @agendasel)
+    
   end 
 
   def resultagenda
