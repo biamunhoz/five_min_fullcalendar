@@ -46,45 +46,63 @@
     <%= form.time_select :timefim  %>
   </div>
 
-  <div class="field">
+  <div class="field observacao">
     <%= form.label :sala_id, "Sala" %>
-    <%= form.select("sala_id", Sala.where("id in (?)", @salas).collect {|a| [ a.nome, a.id ] })  %>
+    <%= form.collection_select :sala_id, Sala.where(" id in (?)", @salas), :id, :nome %>
+
+    <p id="event_observacao">
+    </p>
+
   </div>
+
   
-  <div class="field">
-    <%= form.label :domingo, "Domingo" %>
-    <%= form.check_box :domingo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :segunda, "Segunda-feira" %>
-    <%= form.check_box :segunda %>
-  </div>
-
-  <div class="field">
-    <%= form.label :terca, "Terça-feira" %>
-    <%= form.check_box :terca %>
-  </div>
-
-  <div class="field">
-    <%= form.label :quarta, "Quarta-feira" %>
-    <%= form.check_box :quarta %>
-  </div>
-
-  <div class="field">
-    <%= form.label :quinta, "Quinta-feira" %>
-    <%= form.check_box :quinta %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sexta, "Sexta-feira" %>
-    <%= form.check_box :sexta %>
-  </div>    
-
-  <div class="field">
-    <%= form.label :sabado, "Sabado" %>
-    <%= form.check_box :sabado %>
-  </div>  
+  <table>
+    <tr>
+      <td>
+        <div class="field">
+          <%= form.label :domingo, "Domingo" %>
+          <%= form.check_box :domingo %>
+        </div>  
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :segunda, "Segunda-feira" %>
+          <%= form.check_box :segunda %>      
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :terca, "Terça-feira" %>
+          <%= form.check_box :terca %>   
+        </div>   
+      </td>
+      <td>
+        <div class="field">  
+          <%= form.label :quarta, "Quarta-feira" %>
+          <%= form.check_box :quarta %>
+        </div>      
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :quinta, "Quinta-feira" %>
+          <%= form.check_box :quinta %> 
+        </div>     
+      </td>      
+      <td>
+        <div class="field">
+          <%= form.label :sexta, "Sexta-feira" %>
+          <%= form.check_box :sexta %> 
+        </div>     
+      </td>
+      <td>
+        <div class="field">
+          <%= form.label :sabado, "Sabado" %>
+          <%= form.check_box :sabado %>   
+        </div>
+      </td>   
+            
+    </tr>
+  </table>
  
   <div class="actions">
     <%= form.submit "Salvar" %>

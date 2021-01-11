@@ -107,4 +107,17 @@ $(function () {
 
 });
 
+$(document).ready(function(){
+    $(".observacao #event_sala_id").change(function(){
+
+        $.ajax("/salas.json?sala_id=" + this.value)
+        .done(function(data){            
+            $("#event_observacao").html("Informaçoes da sala escolhida: " + data[0].observacao);
+        })
+        .fail(function(){
+            alert("Falhou");
+        });
+    });
+});
+
 

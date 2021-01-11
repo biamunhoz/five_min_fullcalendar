@@ -63,6 +63,10 @@ class SalasController < ApplicationController
   # GET /salas.json
   def index
     @salas = carrega_salas
+    if params[:sala_id].present?
+      @salas = Sala.where(id: params[:sala_id])
+    end
+    @salas 
   end
 
   # GET /salas/1

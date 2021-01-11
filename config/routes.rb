@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   get 'agendamentos/:id' => 'events#agendamentos', as: 'agendamentos'
   get 'deleteagend/:id' => 'events#deleteagend', as: 'deleteagend'
 
+  get 'apresentasala' => 'events#apresentasala'
+
   root 'welcome#login'
 
   
