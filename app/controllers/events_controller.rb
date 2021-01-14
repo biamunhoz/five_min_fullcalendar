@@ -5,20 +5,18 @@ class EventsController < ApplicationController
 
   def index
 
-    @events = Event.joins(:agendamentos).where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
-    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
-    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
+  # @events = Event.joins(:agendamentos).where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+  #  events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
+  #  agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
 
-=begin
-    json.array!(@events) do |event|
-      json.extract! event, :id, :title   
-      json.start event.start_date   
-      json.end event.end_date   
-      json.url event_url(event, format: :html) 
-      json.backgroundColor '#9297dd'
-      json.borderColor '#9297dd'
-    end
-=end
+
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
+    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
+
+    #json.backgroundColor '#9297dd'
+    #json.borderColor '#9297dd'
+
   end
 
   def salaspermitidas
@@ -64,9 +62,9 @@ class EventsController < ApplicationController
 
   def resultagenda
     
-    @events = Event.joins(:agendamentos).where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
-    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
+    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
   end
 
