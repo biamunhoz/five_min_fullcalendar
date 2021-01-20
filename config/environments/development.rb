@@ -31,9 +31,19 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.perform_caching = false
+  #tinha desabilitado isso na hora que mandei o email ver se faz diferença
+  config.action_mailer.perform_caching = true
+
+  config.action_mailer.perform_deliveries = true
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: "chagas.icb.usp.br",
+      port:     25,
+      domain:   "icb.usp.br"
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

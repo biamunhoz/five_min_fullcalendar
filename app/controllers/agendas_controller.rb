@@ -4,7 +4,13 @@ class AgendasController < ApplicationController
   # GET /agendas
   # GET /agendas.json
   def index
-    @agendas = carrega_agendas
+
+    if session[:admingeral] == true
+      @agendas = Agenda.all
+    else
+      @agendas = carrega_agendas
+    end   
+
   end
 
   def inscricao
@@ -15,24 +21,57 @@ class AgendasController < ApplicationController
 
       @agenda = params[:id]
 
+      @tipoagenda = Agenda.find_by(id: @agenda)
+
       @valida = Inscricao.find_by(usuario_id: current_user.id, agenda_id:@agenda)
 
       if @valida.nil?
 
-        @insc = Inscricao.new
-        @insc.usuario_id = current_user.id
-        @insc.agenda_id = @agenda
-        @insc.save!
+        if @tipoagenda.tipo == 'Publica'
+          @insc = Inscricao.new
+          @insc.usuario_id = current_user.id
+          @insc.agenda_id = @agenda
+          @insc.tipo = "Inscrito"
+          @insc.save!
 
-        addpermissao(@agenda, current_user.id)
-        @confirmado = true
+          addpermissao(@agenda, current_user.id)
+          @confirmado = true
+
+        else
+
+          @insc = Inscricao.new
+          @insc.usuario_id = current_user.id
+          @insc.agenda_id = @agenda
+          @insc.tipo = "Pendente"
+          @insc.save!
+
+          NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+          @confirmado = false
+        end
 
       else
         @confirmado = false
       end
+
     end  
     
   end  
+
+  def verinscritos
+
+    @agenda = params[:id]
+
+    @insc = Inscricao.joins(:usuarios).joins(:agendas).where(agenda_id: @agenda)
+
+  end
+
+  def alternegar
+    #TODO: FAZER ROTINA 
+  end
+
+  def alter
+    #TODO: FAZER ROTINA 
+  end
 
   ### Adiciona usuario em salas com permissao automatica
   def addpermissao(agenda, usuario)
@@ -116,3 +155,11 @@ class AgendasController < ApplicationController
       params.require(:agenda).permit(:nome, :apresentacaotelaini, :observacao, :tipo)
     end
 end
+
+=begin
+
+ Eu preciso criar sempre uma agenda ;
+ Ela precisa ter pelo menos uma sala;
+ E tambem um supervisor 
+ 
+=end

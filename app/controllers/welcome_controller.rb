@@ -44,7 +44,8 @@ class WelcomeController < ApplicationController
 
     log_in loginUsuario
 
-    @agendas = carrega_agendas
+    #@agendas = carrega_agendas
+    @agendas = Agenda.all
 
   end
 
