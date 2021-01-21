@@ -16,10 +16,10 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= event.title %></td>
-        <td><%= event.start_date %></td>
-        <td><%= event.timeini %></td>
-        <td><%= event.end_date %></td>
-        <td><%= event.timefim %></td>
+        <td><%= event.start_date.strftime("%d/%m/%Y")  %></td>
+        <td><%= event.timeini.strftime("%H:%M") %></td>
+        <td><%= event.end_date.strftime("%d/%m/%Y")  %></td>
+        <td><%= event.timefim.strftime("%H:%M") %></td>
         <td><%= link_to 'Mostrar evento', event %></td>
         <td><%= link_to 'Editar evento', edit_event_path(event) %></td>
         <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa açao ira apagar todos os agendamentos deste evento. Voce tem certeza ?' } %></td>

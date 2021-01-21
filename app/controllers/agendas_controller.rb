@@ -61,16 +61,24 @@ class AgendasController < ApplicationController
 
     @agenda = params[:id]
 
-    @insc = Inscricao.joins(:usuarios).joins(:agendas).where(agenda_id: @agenda)
+    @insc = Inscricao.joins(:usuario).joins(:agenda).where(agenda_id: @agenda)
 
   end
 
   def alternegar
-    #TODO: FAZER ROTINA 
+    @insc = Inscricao.find_by(:id => params[:id])
+    
+    @insc.tipo = "Negado"
+    @insc.save!
   end
 
-  def alter
-    #TODO: FAZER ROTINA 
+  def alterinscrito
+    
+    @insc = Inscricao.find_by(:id => params[:id])
+
+    @insc.tipo = "Inscrito"
+    @insc.save!
+
   end
 
   ### Adiciona usuario em salas com permissao automatica

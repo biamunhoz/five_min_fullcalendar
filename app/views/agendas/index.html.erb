@@ -13,6 +13,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></thead>
       <% if session[:admingeral] == true %>
         <th></th>
         <th></th>
@@ -31,7 +32,7 @@
         <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
         <td><%= link_to 'Informaçoes', agenda %></td>
         <td><%= link_to 'Calendario', eventoagenda_path(agenda) %>  </td>
-
+        <td><%= link_to 'Inscritos', verinscritos_path(agenda) %></td>
         <% if session[:admingeral] == true %>
           <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
           <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Voce tem certeza?' } %></td>

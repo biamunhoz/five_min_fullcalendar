@@ -29,9 +29,12 @@ module WelcomeHelper
     @current_user ||= Usuario.find_by(loginUsuario: session[:login])
   end
 
-  #substituir a ideia de salas de uma agenda com permissao
-  def carrega_salas_daagenda(agenda_id)
-  end
+
+  def carrega_agendasprivadas
+
+    @agendas = Inscricao.where(tipo: "Inscrito", usuario_id:  current_user.id)
+
+  end 
 
   def carrega_salas
 
@@ -54,6 +57,12 @@ module WelcomeHelper
 
     @salas.each do |a|
       agendaspermitidas << a.agenda_id
+    end
+
+    @agprivadas = carrega_agendasprivadas
+
+    @agprivadas.each do |a|
+      agendaspermitidas << a.agenda_id  
     end
 
     @agendasid = Agenda.where(" tipo = 'Publica' or id in (?)" , agendaspermitidas).select(:id).distinct

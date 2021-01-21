@@ -15,11 +15,11 @@
     <% @insc.each do |ins| %>
       <tr>
         <td><%= ins.agenda.nome %></td>
-        <td><%= insc.Usuario.nomeUsuario %> </td>
-        <td><%= insc.tipo %></td>
-        <td><%= insc.created_at %> </td>
+        <td><%= ins.usuario.nomeUsuario %> </td>
+        <td><%= ins.tipo %></td>
+        <td><%= ins.created_at.strftime("%d/%m/%Y")  %> </td>
         <td><%= link_to 'Negar', alternegar_path(:id => ins.id) %> </td>
-        <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id)) %> </td>                        
+        <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id) %> </td>                        
       </tr>
     <% end %>
   </tbody>
