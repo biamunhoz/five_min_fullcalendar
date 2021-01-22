@@ -70,6 +70,9 @@ class AgendasController < ApplicationController
     
     @insc.tipo = "Negado"
     @insc.save!
+
+    NotificaMailer.inscricaoagenda(@insc.id, "Rejeitada").deliver_now!
+
   end
 
   def alterinscrito
@@ -78,6 +81,8 @@ class AgendasController < ApplicationController
 
     @insc.tipo = "Inscrito"
     @insc.save!
+
+    NotificaMailer.inscricaoagenda(@insc.id, "Aprovada").deliver_now!
 
   end
 

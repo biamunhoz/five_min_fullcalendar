@@ -22,6 +22,21 @@ class NotificaMailer < ApplicationMailer
     mail to: "to@example.org"
   end
 
+  def inscricaoagenda(idinscr, status)
+    
+    @status = status
+    @insc = Inscricao.where(id: idinscr)
+
+    @insc.each do |i|
+      @user = Usuario.find_by(id: i.usuario_id)
+      @agenda = Agenda.find_by(id: i.agenda_id)  
+
+      mail to: @user.emailPrincipalUsuario, subject: "Permissao de usuario - Agenda"
+    end
+
+  end
+
+
   def permissaoagenda(agenda, user)
 
     @user = Usuario.find_by(id: user)
