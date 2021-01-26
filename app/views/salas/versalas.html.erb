@@ -5,7 +5,9 @@
       <th>Cor</th>
       <th>Permissao automatica</th>
       <th>Observaçao</th>
-      <th>Confirmaçao</th>
+      <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
+        <th>Confirmaçao</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -17,7 +19,9 @@
         <td><%= sala.permissaoauto %></td>
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao %></td>
-        <td><%= link_to "Permissao", permissao_path(sala) %>  </td>
+        <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
+          <td><%= link_to "Permissao", permissao_path(sala) %>  </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

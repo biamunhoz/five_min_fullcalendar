@@ -42,21 +42,26 @@ class SalasController < ApplicationController
   def addadmin
  
     @perfil = Perfil.find_by(:nomeperfil => 'Admin').id
-
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+
+    NotificaMailer.permissaosala(current_user.id, params[:sala], "Administrador").deliver_now!
 
   end 
 
   def altersuper
     @perfil = Perfil.find_by(:nomeperfil => 'Supervisor').id
-
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+
+    NotificaMailer.permissaosala(current_user.id, params[:sala], "Supervisor").deliver_now!
+
   end  
 
   def altersimples
     @perfil = Perfil.find_by(:nomeperfil => 'Simples').id
-
     @registrado = salvaperfil(@perfil, params[:sala], params[:id])
+
+    NotificaMailer.permissaosala(current_user.id, params[:sala], "Simples").deliver_now!
+
   end   
 
   # GET /salas

@@ -16,10 +16,15 @@ class NotificaMailer < ApplicationMailer
   #
   #   en.notifica_mailer.permissaosala.subject
   #
-  def permissaosala
-    @greeting = "Hi"
+  def permissaosala(user, sala, perfil)
+    
+    @user = Usuario.find_by(id: user)
+    
+    @sala = Sala.find_by(id: sala)
 
-    mail to: "to@example.org"
+    @perfil = perfil
+
+    mail to: @user.emailPrincipalUsuario, subject: "Acesso a sala restrita - Sistemas de agendas"
   end
 
   def inscricaoagenda(idinscr, status)
@@ -31,7 +36,7 @@ class NotificaMailer < ApplicationMailer
       @user = Usuario.find_by(id: i.usuario_id)
       @agenda = Agenda.find_by(id: i.agenda_id)  
 
-      mail to: @user.emailPrincipalUsuario, subject: "Permissao de usuario - Agenda"
+      mail to: @user.emailPrincipalUsuario, subject: "Permissao de usuario - Sistema de agendas"
     end
 
   end

@@ -11,7 +11,10 @@
       <th>Observacao</th>
       <th>Confirmacao</th>
       <th>Agendas</th>
-      <th colspan="3"></th>
+      <% if session[:admingeral] == true %>
+        <th colspan="2"></th>
+      <% end %>
+      <th></th>
     </tr>
   </thead>
 
@@ -28,6 +31,9 @@
         <% if session[:admingeral] == true %>
           <td><%= link_to 'Editar', edit_sala_path(sala) %></td>
           <td><%= link_to 'Apagar', sala, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        <% end %>
+        <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
+          <td><%= link_to "Permissao", permissao_path(sala) %>  </td>
         <% end %>
       </tr>
     <% end %>
