@@ -32,8 +32,23 @@
   </div>
 
   <div class="field">
-    <%= form.label :confirmacao, "Confirmaçao" %>
+    <%= form.label :confirmacao, "Evento necessita ser confirmado" %>
     <%= form.check_box :confirmacao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avisoadmhoravaga, "Avisar administradores, caso de eventos desmarcados" %>
+    <%= form.check_box :avisoadmhoravaga %>
+  </div>
+
+  <div class="field">
+    <%= form.label :limiteqtdeuso, "Limitar quantidade de uso diaria" %>
+    <%= form.check_box :limiteqtdeuso %>
+  </div>
+
+  <div class="field">
+    <%= form.label :limitehoras, "Horas" %>
+    <%= form.number_field :limitehoras, max: 8, min: 1 %>
   </div>
 
   <div class="field">

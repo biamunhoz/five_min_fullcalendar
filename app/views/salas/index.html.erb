@@ -10,6 +10,8 @@
       <th>Permissao Automatica</th>
       <th>Observacao</th>
       <th>Confirmacao</th>
+      <th>Avisa horario vago</th/>
+      <th>Limite de uso</th>
       <th>Agendas</th>
       <% if session[:admingeral] == true %>
         <th colspan="2"></th>
@@ -23,9 +25,11 @@
       <tr>
         <td><%= sala.nome %></td>
         <td><%= sala.cor %></td>
-        <td><%= sala.permissaoauto %></td>
+        <td><%= sala.permissaoauto == true ? "Sim" : "Nao" %></td>
         <td><%= sala.observacao %></td>
-        <td><%= sala.confirmacao %></td>
+        <td><%= sala.confirmacao == true ? "Exige confirmar" : "Nao exige confirmar" %></td>
+        <td><%= sala.avisoadmhoravaga == true ? "Sim" : "Nao" %> </td>
+        <td><%= sala.limiteqtdeuso == true ? "Sim" : "Nao" %></td>
         <td><%= sala.agenda.nome %></td>
         <td><%= link_to 'Mostrar', sala %></td>
         <% if session[:admingeral] == true %>

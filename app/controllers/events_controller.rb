@@ -108,6 +108,18 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
 
+    @sala = Sala.find_by(id: @event.sala_id)
+
+    bEnviaEmailConfirmacao = false
+
+    if @sala.confirmacao == true
+      @event.pendente = true
+      bEnviaEmailConfirmacao = true
+    else 
+      @event.pendente = false 
+    end
+
+
     respond_to do |format|
 
         if @event.save
@@ -159,6 +171,10 @@ class EventsController < ApplicationController
             
           end
   
+          if bEnviaEmailConfirmacao == true
+            NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
+          end
+
           format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
           format.json { render :show, status: :created, location: @event }
         else

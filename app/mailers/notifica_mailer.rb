@@ -5,10 +5,13 @@ class NotificaMailer < ApplicationMailer
   #
   #   en.notifica_mailer.confirmacao.subject
   #
-  def confirmacao
-    @greeting = "Hi"
+  def confirmacao(user, titulo)
 
-    mail to: "to@example.org"
+    @user = Usuario.find_by(id: user)
+    @evento = titulo
+
+    mail to: @user.emailPrincipalUsuario, subject: "Evento criado - Pendente"
+
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
