@@ -77,6 +77,26 @@ class EventsController < ApplicationController
   def deleteagend
 
     @agendamento = Agendamento.find(params[:id])
+
+    @evento = Event.find_by(id: @agendamento.event_id)
+
+    @sala = Sala.find_by(id: @evento.sala_id)
+
+    if @sala.avisoadmhoravaga == true
+
+      @ini = @agendamento.data_inicio.strftime("%d/%m/%Y") + " - " + @agendamento.hora_inicio.strftime("%H:%M")
+      @fim = @agendamento.data_fim.strftime("%d/%m/%Y") + " - " + @agendamento.hora_fim.strftime("%H:%M")
+
+      @supers = Permissao.where(sala_id: @sala.id , perfil_id: 2)
+      
+      @supers.each do |s|
+        @user = Usuario.find_by(id: s.usuario_id)
+
+        NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
+      end 
+
+    end
+
     @agendamento.destroy
 
     respond_to do |format|
@@ -202,6 +222,24 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+
+    @sala = Sala.find_by(id: @event.sala_id)
+
+    if @sala.avisoadmhoravaga == true
+
+      @ini = @event.start_date.strftime("%d/%m/%Y") + " - " + @event.timeini.strftime("%H:%M")
+      @fim = @event.end_date.strftime("%d/%m/%Y") + " - " + @event.timefim.strftime("%H:%M")
+
+      @supers = Permissao.where(sala_id: @event.sala_id, perfil_id: 2)
+      
+      @supers.each do |s|
+        @user = Usuario.find_by(id: s.usuario_id)
+
+        NotificaMailer.avisohorariovago(@user.emailPrincipalUsuario, @ini, @fim, @sala.nome, @user.nomeUsuario).deliver_now!
+      end 
+
+    end 
+
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Evento foi apagado com sucesso.' }

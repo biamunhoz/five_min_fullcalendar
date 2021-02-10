@@ -1,10 +1,20 @@
 class NotificaMailer < ApplicationMailer
 
+
+  def avisohorariovago(email, ini, fim, nomesala, nomeuser)
+    
+    @ini = ini 
+    @fim = fim
+    @local = nomesala
+    @nomeUsuario = nomeuser
+
+    mail to: email, subject: "Horario Vago"
+
+  end
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
   #   en.notifica_mailer.confirmacao.subject
-  #
   def confirmacao(user, titulo)
 
     @user = Usuario.find_by(id: user)
