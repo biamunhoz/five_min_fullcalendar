@@ -1,6 +1,30 @@
 class Event < ApplicationRecord
     has_many :agendamentos, dependent: :delete_all
     validate :horariomarcado
+    validate :tempolimite
+
+    def tempolimite
+      
+      @sala = Sala.find_by(id: self.sala_id)
+
+      valorlimite = 0
+      if  @sala.limiteqtdeuso == true
+        valorlimite = @sala.limitehoras
+
+        valorlimite = valorlimite * 60
+
+        horaini = (self.timeini.hour * 60) + self.timeini.min
+        horafim = (self.timefim.hour * 60) + self.timefim.min
+
+        tempo = horafim - horaini
+
+        if tempo > valorlimite
+          errors.add(:timefim, "Ha um limite de tempo definido, favor agendar com no maximo " + valorlimite.to_s + " minutos de uso.")
+        end
+
+      end
+
+    end
 
     def horariomarcado
       if validaFinal == true

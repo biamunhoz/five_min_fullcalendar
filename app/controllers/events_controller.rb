@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
@@ -21,7 +23,7 @@ class EventsController < ApplicationController
 
   def salaspermitidas
 
-    @salas = carrega_salas
+    @salas = carregarsalas
 
     salaspermitidas = Array.new
 
@@ -139,7 +141,6 @@ class EventsController < ApplicationController
       @event.pendente = false 
     end
 
-
     respond_to do |format|
 
         if @event.save
@@ -149,7 +150,7 @@ class EventsController < ApplicationController
   
           diaini = @event.start_date.to_date
           diafim = @event.end_date.to_date
-    
+
           diaini.upto(diafim) do |day|
             case day.wday       
               when 0
