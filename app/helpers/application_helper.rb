@@ -12,5 +12,5 @@ module ApplicationHelper
 
         return salaspermitidas
     end
-    
+   
 end

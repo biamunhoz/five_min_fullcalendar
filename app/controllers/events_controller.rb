@@ -21,9 +21,22 @@ class EventsController < ApplicationController
 
   end
 
+  def carrega_salas
+
+    @permissao = Permissao.where(usuario_id: current_user.id)
+
+    salaspermitidas = Array.new
+    @permissao.each do |p|
+      salaspermitidas << p.sala_id
+    end
+
+    @salas = Sala.where(" id in (?) ", salaspermitidas)
+
+  end 
+
   def salaspermitidas
 
-    @salas = carregarsalas
+    @salas = carrega_salas
 
     salaspermitidas = Array.new
 
