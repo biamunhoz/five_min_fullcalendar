@@ -207,6 +207,7 @@ class EventsController < ApplicationController
   
           if bEnviaEmailConfirmacao == true
             NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
+            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
           end
 
           format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }

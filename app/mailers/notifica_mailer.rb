@@ -24,6 +24,25 @@ class NotificaMailer < ApplicationMailer
 
   end
 
+  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate)
+
+    @sala = salanome
+    @evento = eventonome
+    @de = eventode
+    @ate = eventoate
+
+    # 2 - Supervisor
+    @super = Permissao.where(perfil_id: 2, sala_id: salaid)
+
+    @super.each do |su|
+
+      @usersuper = Usuario.find_by(id: su.usuario_id)
+
+      mail to: @usersuper.emailPrincipalUsuario, subject: "Evento pendente - Favor confirmar/negar"
+    end
+
+  end 
+
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
