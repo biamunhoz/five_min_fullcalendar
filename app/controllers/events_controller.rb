@@ -21,6 +21,31 @@ class EventsController < ApplicationController
 
   end
 
+  def confirmarevento
+
+    @event = Event.find_by(:id => params[:id])
+    
+    @event.pendente = false
+    @event.save!
+
+    NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Confirmado").deliver_now!
+
+    redirect_to events_url, notice: 'Evento confirmado'
+
+  end
+
+  def negarevento
+
+    @event = Event.find_by(:id => params[:id])
+
+    NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
+
+    @event.destroy
+
+    redirect_to events_url, notice: 'Evento negado'
+
+  end
+
   def carrega_salas
 
     @permissao = Permissao.where(usuario_id: current_user.id)
@@ -154,6 +179,8 @@ class EventsController < ApplicationController
       @event.pendente = false 
     end
 
+    @event.usuario_id =  current_user.id
+
     respond_to do |format|
 
         if @event.save
@@ -260,6 +287,7 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, notice: 'Evento foi apagado com sucesso.' }
       format.json { head :no_content }
     end
+
   end
 
   def salvaAgendamento(start_date, end_date, horaini, horafim, event_id)

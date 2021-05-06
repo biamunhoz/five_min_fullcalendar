@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
   get 'eventoagenda/:id', to: 'events#eventoagenda', as: 'eventoagenda'
   get 'resultagenda', to: 'events#resultagenda', as: 'resultagenda', defaults: { format: :json }
+  get 'negarevento/:id' => 'events#negarevento', as: 'negarevento'
+  get 'confirmarevento/:id' => 'events#confirmarevento', as: 'confirmarevento'
 
   get 'agendamentos/:id' => 'events#agendamentos', as: 'agendamentos'
   get 'deleteagend/:id' => 'events#deleteagend', as: 'deleteagend'

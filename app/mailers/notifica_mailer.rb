@@ -59,6 +59,16 @@ class NotificaMailer < ApplicationMailer
     mail to: @user.emailPrincipalUsuario, subject: "Acesso a sala restrita - Sistemas de agendas"
   end
 
+  def eventopendente(eventoid, usuarioid, status)
+    
+    @status = status
+    @user = Usuario.find_by(id: usuarioid)
+    @evento = Event.find_by(id: eventoid)
+
+    mail to: @user.emailPrincipalUsuario, subject: "Informaçao de status do evento cadastrado"
+
+  end
+
   def inscricaoagenda(idinscr, status)
     
     @status = status
