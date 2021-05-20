@@ -7,10 +7,10 @@
     <tr>
       <th>Nome</th>
       <th>Cor</th>
-      <th>Permissao Automatica</th>
-      <th>Observacao</th>
-      <th>Confirmacao</th>
-      <th>Avisa horario vago</th/>
+      <th>Permissão Automática</th>
+      <th>Observação</th>
+      <th>Confirmação</th>
+      <th>Avisar horário vago</th/>
       <th>Limite de uso</th>
       <th>Agendas</th>
       <% if session[:admingeral] == true %>
@@ -25,11 +25,11 @@
       <tr>
         <td><%= sala.nome %></td>
         <td><%= sala.cor %></td>
-        <td><%= sala.permissaoauto == true ? "Sim" : "Nao" %></td>
+        <td><%= sala.permissaoauto == true ? "Sim" : "Não" %></td>
         <td><%= sala.observacao %></td>
-        <td><%= sala.confirmacao == true ? "Exige confirmar" : "Nao exige confirmar" %></td>
-        <td><%= sala.avisoadmhoravaga == true ? "Sim" : "Nao" %> </td>
-        <td><%= sala.limiteqtdeuso == true ? "Sim" : "Nao" %></td>
+        <td><%= sala.confirmacao == true ? "Exige confirmar" : "Não exige confirmar" %></td>
+        <td><%= sala.avisoadmhoravaga == true ? "Sim" : "Não" %> </td>
+        <td><%= sala.limiteqtdeuso == true ? "Sim" : "Não" %></td>
         <td><%= sala.agenda.nome %></td>
         <td><%= link_to 'Mostrar', sala %></td>
         <% if session[:admingeral] == true %>
@@ -37,7 +37,7 @@
           <td><%= link_to 'Apagar', sala, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
         <% end %>
         <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
-          <td><%= link_to "Permissao", permissao_path(sala) %>  </td>
+          <td><%= link_to "Permissão", permissao_path(sala) %>  </td>
         <% end %>
       </tr>
     <% end %>

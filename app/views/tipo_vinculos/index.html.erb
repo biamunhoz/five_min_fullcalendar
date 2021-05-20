@@ -1,20 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tipo Vinculos</h1>
+<h1>Vínculos</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Tipovinculo</th>
-      <th>Codigosetor</th>
-      <th>Nomeabreviadsetor</th>
-      <th>Nomesetor</th>
-      <th>Codigounidade</th>
-      <th>Siglaunidade</th>
-      <th>Nomeunidade</th>
-      <th>Nomevinculo</th>
-      <th>Nomeabreviadofuncao</th>
-      <th>Usuario</th>
+      <th>Vínculo</th>
+      <th>Cód. do setor</th>
+      <th>Nome abreviado do setor</th>
+      <th>Nome do setor</th>
+      <th>Cód. Unidade</th>
+      <th>Sigla</th>
+      <th>Unidade</th>
+      <th>Vínculo</th>
+      <th>Função</th>
+      <th>Usuário</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -32,9 +32,9 @@
         <td><%= tipo_vinculo.nomeVinculo %></td>
         <td><%= tipo_vinculo.nomeAbreviadoFuncao %></td>
         <td><%= tipo_vinculo.usuario %></td>
-        <td><%= link_to 'Show', tipo_vinculo %></td>
-        <td><%= link_to 'Edit', edit_tipo_vinculo_path(tipo_vinculo) %></td>
-        <td><%= link_to 'Destroy', tipo_vinculo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Mostrar', tipo_vinculo %></td>
+        <td><%= link_to 'Editar', edit_tipo_vinculo_path(tipo_vinculo) %></td>
+        <td><%= link_to 'Apagar', tipo_vinculo, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -42,4 +42,3 @@
 
 <br>
 
-<%= link_to 'New Tipo Vinculo', new_tipo_vinculo_path %>

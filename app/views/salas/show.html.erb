@@ -11,28 +11,28 @@
 </p>
 
 <p>
-  <strong>Permissao Automatica:</strong>
-  <%= @sala.permissaoauto == true ? "Sim" : "Nao" %>
+  <strong>Permissão Automática:</strong>
+  <%= @sala.permissaoauto == true ? "Sim" : "Não" %>
 </p>
 
 <p>
-  <strong>Observacao:</strong>
+  <strong>Observação:</strong>
   <%= @sala.observacao %>
 </p>
 
 <p>
-  <strong>Confirmacao:</strong>
-  <%= @sala.confirmacao == true ? "Exige confirmar" : "Nao exige confirmar" %>
+  <strong>Confirmação:</strong>
+  <%= @sala.confirmacao == true ? "Exige confirmar" : "Não exige confirmar" %>
 </p>
 
 <p>
-  <strong>Avisa horario vago:</strong>
-  <%= @sala.avisoadmhoravaga == true ? "Sim" : "Nao" %>
+  <strong>Avisar horario vago:</strong>
+  <%= @sala.avisoadmhoravaga == true ? "Sim" : "Não" %>
 </p>
 
 <p>
   <strong>Tem limite de quantidade de uso (Horas):</strong>
-  <%= @sala.limiteqtdeuso == true ? "Sim" : "Nao"  %>
+  <%= @sala.limiteqtdeuso == true ? "Sim" : "Não"  %>
 </p>
 
 <% if @sala.limiteqtdeuso == true %>

@@ -19,7 +19,7 @@ class Event < ApplicationRecord
         tempo = horafim - horaini
 
         if tempo > valorlimite
-          errors.add(:timefim, "Ha um limite de tempo definido, favor agendar com no maximo " + valorlimite.to_s + " minutos de uso.")
+          errors.add(:timefim, "Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso.")
         end
 
       end
@@ -28,8 +28,8 @@ class Event < ApplicationRecord
 
     def horariomarcado
       if validaFinal == true
-        errors.add(:start_date, "Periodo reservado anteriormente")
-        errors.add(:end_date, "Periodo reservado anteriormente")
+        errors.add(:start_date, "Período reservado anteriormente")
+        errors.add(:end_date, "Período reservado anteriormente")
       end  
     end
 

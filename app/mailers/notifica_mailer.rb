@@ -8,7 +8,7 @@ class NotificaMailer < ApplicationMailer
     @local = nomesala
     @nomeUsuario = nomeuser
 
-    mail to: email, subject: "Horario Vago"
+    mail to: email, subject: "Horário Vago"
 
   end
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -65,7 +65,7 @@ class NotificaMailer < ApplicationMailer
     @user = Usuario.find_by(id: usuarioid)
     @evento = Event.find_by(id: eventoid)
 
-    mail to: @user.emailPrincipalUsuario, subject: "Informaçao de status do evento cadastrado"
+    mail to: @user.emailPrincipalUsuario, subject: "Informação de status do evento cadastrado"
 
   end
 
@@ -78,7 +78,7 @@ class NotificaMailer < ApplicationMailer
       @user = Usuario.find_by(id: i.usuario_id)
       @agenda = Agenda.find_by(id: i.agenda_id)  
 
-      mail to: @user.emailPrincipalUsuario, subject: "Permissao de usuario - Sistema de agendas"
+      mail to: @user.emailPrincipalUsuario, subject: "Permissão de usuário - Sistema de agendas"
     end
 
   end
@@ -100,7 +100,7 @@ class NotificaMailer < ApplicationMailer
 
         @usersuper = Usuario.find_by(id: su.usuario_id)
 
-        mail to: @usersuper.emailPrincipalUsuario, cc: @user.emailPrincipalUsuario, subject: "Permissao de usuario - Agenda"
+        mail to: @usersuper.emailPrincipalUsuario, cc: @user.emailPrincipalUsuario, subject: "Permissão de usuário - Agenda"
       end
     end
     

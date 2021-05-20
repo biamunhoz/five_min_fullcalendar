@@ -1,16 +1,16 @@
-<h1>Events</h1>
+<h1>Eventos</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Start date</th>
-      <th>Datetime</th>
-      <th>End date</th>
-      <th>Datetime</th>
-      <th>Açao</th>
-      <th>Açao</th>
-      <th>Açao</th>
+      <th>Título</th>
+      <th>Data inicial</th>
+      <th>Hora inicial</th>
+      <th>Data final</th>
+      <th>Hora final</th>
+      <th>Ação</th>
+      <th>Ação</th>
+      <th>Ação</th>
       <th>Consulta</th>
 
     </tr>
@@ -26,12 +26,12 @@
         <td><%= event.end_date.strftime("%d/%m/%Y")  %></td>
         <td><%= event.timefim.strftime("%H:%M") %></td>
         <% if event.pendente == true %>
-          <td><%= link_to 'Negar ', negarevento_path(event), data: { confirm: 'Essa açao ira apagar todos os agendamentos deste evento. Voce tem certeza ?' } %> | <%= link_to 'Confirmar ', confirmarevento_path(event) %> </td>
+          <td><%= link_to 'Negar ', negarevento_path(event), data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' } %> | <%= link_to 'Confirmar ', confirmarevento_path(event) %> </td>
         <% else %>
           <td> Confirmado </td>
         <% end %>
         <td><%= link_to 'Editar evento', edit_event_path(event) %></td>
-        <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa açao ira apagar todos os agendamentos deste evento. Voce tem certeza ?' } %></td>
+        <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' } %></td>
         <td><%= link_to 'Agendamentos', agendamentos_path(event) %> </td>
       </tr>
     <% end %>

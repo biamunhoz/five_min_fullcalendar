@@ -1,4 +1,4 @@
-<h1>Events</h1>
+<h1>Eventos</h1>
 
 <table>
   <thead>
@@ -19,7 +19,7 @@
         <td><%= a.hora_inicio.strftime("%H:%M") %></td>
         <td><%= a.data_fim.strftime("%d/%m/%Y") %></td>
         <td><%= a.hora_fim.strftime("%H:%M") %></td>
-        <td><%= link_to 'Excluir', deleteagend_path(a), data: { confirm: 'Essa açao ira apagar somente este agendamento do evento. Voce tem certeza ?' } %></td>
+        <td><%= link_to 'Excluir', deleteagend_path(a), data: { confirm: 'Essa ação irá apagar somente este agendamento do evento. Você tem certeza ?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -124,7 +124,7 @@ class AgendasController < ApplicationController
 
     respond_to do |format|
       if @agenda.save
-        format.html { redirect_to @agenda, notice: 'Agenda was successfully created.' }
+        format.html { redirect_to @agenda, notice: 'Agenda foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @agenda }
       else
         format.html { render :new }
@@ -138,7 +138,7 @@ class AgendasController < ApplicationController
   def update
     respond_to do |format|
       if @agenda.update(agenda_params)
-        format.html { redirect_to @agenda, notice: 'Agenda was successfully updated.' }
+        format.html { redirect_to @agenda, notice: 'Agenda foi alterada com sucesso.' }
         format.json { render :show, status: :ok, location: @agenda }
       else
         format.html { render :edit }
@@ -152,7 +152,7 @@ class AgendasController < ApplicationController
   def destroy
     @agenda.destroy
     respond_to do |format|
-      format.html { redirect_to agendas_url, notice: 'Agenda was successfully destroyed.' }
+      format.html { redirect_to agendas_url, notice: 'Agenda foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

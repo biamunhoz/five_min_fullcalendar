@@ -101,7 +101,7 @@ class SalasController < ApplicationController
           addpermissao(@sala.agenda_id, @sala.id)
         end 
 
-        format.html { redirect_to @sala, notice: 'Sala was successfully created.' }
+        format.html { redirect_to @sala, notice: 'Sala foi criada com sucesso.' }
         format.json { render :show, status: :created, location: @sala }
       else
         format.html { render :new }
@@ -133,7 +133,7 @@ class SalasController < ApplicationController
         if @sala.permissaoauto == true
           alterpermissao(@sala.id, @sala.agenda_id)
         end  
-        format.html { redirect_to @sala, notice: 'Sala was successfully updated.' }
+        format.html { redirect_to @sala, notice: 'Sala foi atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @sala }
       else
         format.html { render :edit }
@@ -168,7 +168,7 @@ class SalasController < ApplicationController
   def destroy
     @sala.destroy
     respond_to do |format|
-      format.html { redirect_to salas_url, notice: 'Sala was successfully destroyed.' }
+      format.html { redirect_to salas_url, notice: 'Sala foi apagada com sucesso.' }
       format.json { head :no_content }
     end
   end

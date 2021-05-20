@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Minhas Agendas ICB</h1>
+<h1>Minhas Agendas - ICB</h1>
 
 <table>
   <thead>
     <tr>
       <th>Nome</th>
-      <th>Apresenta na tela inicial</th>
-      <th>Observacao</th>
+      <th>Apresentar na tela inicial</th>
+      <th>Observação</th>
       <th>Tipo</th>
       <th></th>     
       <th></th>
@@ -28,14 +28,14 @@
         <td><%= agenda.apresentacaotelaini %></td>
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
-        <td><%= link_to 'Inscriçao', inscricao_path(agenda) %> </td>
+        <td><%= link_to 'Inscrição', inscricao_path(agenda) %> </td>
         <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
-        <td><%= link_to 'Informaçoes', agenda %></td>
-        <td><%= link_to 'Calendario', eventoagenda_path(agenda) %>  </td>
+        <td><%= link_to 'Informações', agenda %></td>
+        <td><%= link_to 'Calendário', eventoagenda_path(agenda) %>  </td>
         <td><%= link_to 'Inscritos', verinscritos_path(agenda) %></td>
         <% if session[:admingeral] == true %>
           <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
-          <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Voce tem certeza?' } %></td>
+          <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
         <% end %>
       </tr>
     <% end %>

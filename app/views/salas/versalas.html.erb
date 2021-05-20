@@ -3,10 +3,10 @@
     <tr>
       <th>Nome</th>
       <th>Cor</th>
-      <th>Permissao automatica</th>
-      <th>Observaçao</th>
+      <th>Permissão automática</th>
+      <th>Observação</th>
       <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
-        <th>Confirmaçao</th>
+        <th>Confirmação</th>
       <% end %>
     </tr>
   </thead>
@@ -20,7 +20,7 @@
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao %></td>
         <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
-          <td><%= link_to "Permissao", permissao_path(sala) %>  </td>
+          <td><%= link_to "Permissão", permissao_path(sala) %>  </td>
         <% end %>
       </tr>
     <% end %>

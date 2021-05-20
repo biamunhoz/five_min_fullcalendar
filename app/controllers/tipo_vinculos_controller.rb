@@ -28,7 +28,7 @@ class TipoVinculosController < ApplicationController
 
     respond_to do |format|
       if @tipo_vinculo.save
-        format.html { redirect_to @tipo_vinculo, notice: 'Tipo vinculo was successfully created.' }
+        format.html { redirect_to @tipo_vinculo, notice: 'Vínculo foi criado com sucesso.' }
         format.json { render :show, status: :created, location: @tipo_vinculo }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class TipoVinculosController < ApplicationController
   def update
     respond_to do |format|
       if @tipo_vinculo.update(tipo_vinculo_params)
-        format.html { redirect_to @tipo_vinculo, notice: 'Tipo vinculo was successfully updated.' }
+        format.html { redirect_to @tipo_vinculo, notice: 'Vínculo foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @tipo_vinculo }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class TipoVinculosController < ApplicationController
   def destroy
     @tipo_vinculo.destroy
     respond_to do |format|
-      format.html { redirect_to tipo_vinculos_url, notice: 'Tipo vinculo was successfully destroyed.' }
+      format.html { redirect_to tipo_vinculos_url, notice: 'Vínculo foi apagado com sucesso.' }
       format.json { head :no_content }
     end
   end
