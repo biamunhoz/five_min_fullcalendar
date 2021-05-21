@@ -16,9 +16,9 @@
       <tr>
         <td><%= sala.nome %></td>
         <td><%= sala.cor %></td>
-        <td><%= sala.permissaoauto %></td>
+        <td><%= sala.permissaoauto == true ? "Sim" : "Não" %></td>
         <td><%= sala.observacao %></td>
-        <td><%= sala.confirmacao %></td>
+        <td><%= sala.confirmacao == true ? "Sim" : "Não" %></td>
         <% if session[:admingeral] == true or tempermissaosuperadmin(sala.id) %>
           <td><%= link_to "Permissão", permissao_path(sala) %>  </td>
         <% end %>

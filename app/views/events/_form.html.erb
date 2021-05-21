@@ -48,7 +48,7 @@
 
   <div class="field observacao">
     <%= form.label :sala_id, "Sala" %>
-    <%= form.collection_select :sala_id, Sala.where(" id in (?)", carregarsalas), :id, :nome %>
+    <%= form.collection_select :sala_id, Sala.where(" id in (?)", carregarsalas), :id, :nome, { include_blank: 'Selecione a sala' } %>
 
     <p id="event_observacao">
     </p>
