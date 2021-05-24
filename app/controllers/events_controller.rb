@@ -111,6 +111,7 @@ class EventsController < ApplicationController
   def agendamentos
 
     @agendamentos = Agendamento.where(event_id: params[:id])
+    @eventodoagendamento = Event.includes(:sala).find(params[:id])
 
   end
 

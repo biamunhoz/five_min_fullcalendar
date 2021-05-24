@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
     has_many :agendamentos, dependent: :delete_all
+    belongs_to :sala
     validate :horariomarcado
     validate :tempolimite
 
