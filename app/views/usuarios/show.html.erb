@@ -1,43 +1,66 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @usuario.nomeUsuario %>
-</p>
 
-<p>
-  <strong>Login:</strong>
-  <%= @usuario.loginUsuario %>
-</p>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+    <tr>
+      <th>Login</th>
+      <th>Nome </th>
+      <th>Tipo </th>
+      <th>E-mail Principal</th>
+      <th>E-mail Alternativo</th>
+      <th>E-mail USP</th>
+      <th>Telefone</th>
+      <th>Ramal</th>
+    </tr>
+    </thead>
 
-<p>
-  <strong>Tipo de usuário:</strong>
-  <%= @usuario.tipoUsuario %>
-</p>
+    <tbody>
+    <tr>
+      <td><%= @usuario.loginUsuario %></td>
+      <td><%= @usuario.nomeUsuario %></td>
+      <td><%= @usuario.tipoUsuario %></td>
+      <td><%= @usuario.emailPrincipalUsuario %></td>
+      <td><%= @usuario.emailAlternativoUsuario %></td>
+      <td><%= @usuario.emailUspUsuario %></td>
+      <td><%= @usuario.numeroTelefoneFormatado %></td>
+      <td><%= @usuario.ramalUsp %></td>
+    </tr>
+    </tbody>
+  </table>
 
-<p>
-  <strong>E-mail principal:</strong>
-  <%= @usuario.emailPrincipalUsuario %>
-</p>
+  <table class="table table-striped table-bordered table-hover table-condensed">
+    <thead>
+    <tr>
+      <th>Vinculo</th>
+      <th>Nome do vinculo</th>
+      <th>Sigla da unidade</th>
+      <th>Nome da unidade</th>
+      <th>Codigo do setor</th>
+      <th>Nome do setor</th>
+      <th>Nome da função</th>
+    </tr>
+    </thead>
 
-<p>
-  <strong>E-mail alternativo:</strong>
-  <%= @usuario.emailAlternativoUsuario %>
-</p>
+    <tbody>
+    <% @tipovinculo = TipoVinculo.where(usuario_id: @usuario.id) %>
 
-<p>
-  <strong>E-mail USP:</strong>
-  <%= @usuario.emailUspUsuario %>
-</p>
+    <% @tipovinculo.each do |v| %>
 
-<p>
-  <strong>Telefone:</strong>
-  <%= @usuario.numeroTelefoneFormatado %>
-</p>
+        <tr>
+          <td><%= v.tipoVinculo %></td>
+          <td><%= v.nomeVinculo %></td>
+          <td><%= v.siglaUnidade %></td>
+          <td><%= v.nomeUnidade %></td>
+          <td><%= v.codigoSetor %></td>
+          <td><%= v.nomeSetor %></td>
+          <td><%= v.nomeAbreviadoFuncao %></td>
+        </tr>
+    <% end %>
 
-<p>
-  <strong>Ramal:</strong>
-  <%= @usuario.ramalUsp %>
-</p>
+    </tbody>
+  </table>
 
-<%= link_to 'Voltar', :back %>
+  <hr width=60% />
+
+
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

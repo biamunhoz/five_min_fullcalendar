@@ -5,5 +5,5 @@
   <%= @perfil.nomeperfil %>
 </p>
 
-<%= link_to 'Editar', edit_perfil_path(@perfil) %> |
-<%= link_to 'Voltar', perfils_path %>
+<%= link_to 'Editar', edit_perfil_path(@perfil), class: 'btn btn-warning' %> |
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

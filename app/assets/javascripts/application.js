@@ -16,6 +16,9 @@
 //= require_tree .
 //= require jquery
 //= require moment
+//= require jquery3
+//= require popper
+//= require bootstrap
 //= require fullcalendar
 //= require fullcalendar/locale-all
 

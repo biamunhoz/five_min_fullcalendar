@@ -69,3 +69,6 @@ gem 'senhaunica'
 gem 'oauth'
 
 gem 'mysql2', group: :mysql
+
+gem 'bootstrap', '~> 4.0.0'
+gem 'jquery-rails'

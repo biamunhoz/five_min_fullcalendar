@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sistema de agendas - ICB</title>
+    <title>Agendas - ICB</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,30 +11,48 @@
 
   <body data-turbolinks = "false">
 
-    <nav class="navbar navbar-inverse" role="navigation">
-      <div class="container">
+    <header>
+    <div id="header-wrap">
+      <h2 align="center"> NOSSAS AGENDAS - ICB </h2>
+    </div>
+    </header>
 
-        <ul class="nav navbar-nav">
-          <% if session[:login] != nil %>
-            <% if session[:admingeral] == true %>
-              <li class="lead"> <%= link_to "Usuários", usuarios_path %></li>
-              <li class="lead"> <%= link_to "Perfil", perfils_path %></li>
-            <% end %>
-            <li class="lead"> <%= link_to "Minhas agendas - Eventos", events_path %></li>
-            <li class="lead"> <%= link_to "Agendas", agendas_path %></li>
-            <li class="lead"> <%= link_to "Salas", salas_path %></li>
-            <li class="lead"> <%= link_to "Sair" , logout_path %></li>
-          <% else %>
-            <li class="lead"> <%= link_to "Login", login_path %></li>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black">
+
+      <div class="container-fluid">
+      <% if session[:login] != nil %>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+
+          <% if session[:admingeral] == true %>
+            <li class="navbar-brand mb-0 h1">  <%= link_to "Usuários ", usuarios_path, class: "nav-link" %></li>
+            <li class="navbar-brand mb-0 h1"> <%= link_to "Perfil ", perfils_path, class: "nav-link" %></li>
           <% end %>
-
+        
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Minhas agendas - Eventos ", events_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Agendas ", agendas_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Salas ", salas_path, class: "nav-link" %></li>
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Sair " , logout_path, class: "nav-link" %></li>
         </ul>
+        </div>  
+      <% end %>
       </div>  
     </nav>
 
-    <% if session[:login] != nil %>
-      <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
+    <% if notice.present? %>
+      <div class="alert alert-info">
+        <%= notice  %>
+      </div>
     <% end %>
-    <%= yield %>
+
+    <div class="container">
+      <% if session[:login] != nil %>
+      <br/>
+        <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
+      <% end %>
+      <%= yield %>
+    </div>
+
   </body>
 </html>
