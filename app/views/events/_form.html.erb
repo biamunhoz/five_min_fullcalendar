@@ -11,43 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title, "Título" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :descricao, "Descrição" %>
-    <%= form.text_field :descricao %>
-  </div>
-
-  <div class="field">
-    <%= form.label :registropara, "Registrado para" %>
-    <%= form.text_field :registropara %>
-  </div>
-
-  <div class="field">
-    <%= form.label :start_date, "Data inicial" %>
-    <%= form.date_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :timeini, "Horário inicial" %>
-    <%= form.time_select :timeini %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_date, "Data final" %>
-    <%= form.date_select :end_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :timefim, "Horário final" %>
-    <%= form.time_select :timefim  %>
-  </div>
-
   <div class="field observacao">
-    <%= form.label :sala_id, "Sala" %>
+    <%= form.label :sala_id, "Sala/Equipamento" %>
     <%= form.collection_select :sala_id, Sala.where(" id in (?)", carregarsalas), :id, :nome, { include_blank: 'Selecione a sala' } %>
 
     <p id="event_observacao">
@@ -55,55 +20,85 @@
 
   </div>
 
-  
-  <table>
-    <tr>
-      <td>
-        <div class="field">
-          <%= form.check_box :domingo %>
-          <%= form.label :domingo, "Domingo"  %>
-        </div>  
-      </td>
-      <td>
-        <div class="field">
-          <%= form.check_box :segunda %>    
-          <%= form.label :segunda, "Segunda-feira" %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= form.check_box :terca %> 
-          <%= form.label :terca, "Terça-feira" %>
-        </div>   
-      </td>
-      <td>
-        <div class="field">  
-          <%= form.check_box :quarta %>
-          <%= form.label :quarta, "Quarta-feira" %>
+  <div class="field">
+    <%= form.label :title, "Título" %>
+    <%= form.text_field :title, size:30 %>
+  </div>
 
-        </div>      
-      </td>
-      <td>
-        <div class="field">
-          <%= form.check_box :quinta %> 
-          <%= form.label :quinta, "Quinta-feira" %>
-        </div>     
-      </td>      
-      <td>
-        <div class="field">
-          <%= form.check_box :sexta %> 
-          <%= form.label :sexta, "Sexta-feira" %>
-        </div>     
-      </td>
-      <td>
-        <div class="field">
-          <%= form.check_box :sabado %>  
-          <%= form.label :sabado, "Sábado" %>
-        </div>
-      </td>   
-            
-    </tr>
-  </table>
+  <div class="field">
+    <%= form.label :registropara, "Registrar para" %>
+    <%= form.text_field :registropara, size:30 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descricao, "Descrição" %>
+    <%= form.text_field :descricao, size:35  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date, "Data inicial" %>
+    <%= form.date_select :start_date %> -
+    <%= form.time_select :timeini %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date, "Data final" %>
+    <%= form.date_select :end_date %> -
+    <%= form.time_select :timefim  %>
+  </div>
+
+  <fieldset>
+  <legend>Selecione o(s) dia(s) que o agendamento acontecerá:</legend>
+  
+    <table>
+      <tr>
+        <td>
+          <div class="field">
+            <%= form.check_box :domingo %>
+            <%= form.label :domingo, "Domingo"  %>
+          </div>  
+        </td>
+        <td>
+          <div class="field">
+            <%= form.check_box :segunda %>    
+            <%= form.label :segunda, "Segunda-feira" %>
+          </div>
+        </td>
+        <td>
+          <div class="field">
+            <%= form.check_box :terca %> 
+            <%= form.label :terca, "Terça-feira" %>
+          </div>   
+        </td>
+        <td>
+          <div class="field">  
+            <%= form.check_box :quarta %>
+            <%= form.label :quarta, "Quarta-feira" %>
+
+          </div>      
+        </td>
+        <td>
+          <div class="field">
+            <%= form.check_box :quinta %> 
+            <%= form.label :quinta, "Quinta-feira" %>
+          </div>     
+        </td>      
+        <td>
+          <div class="field">
+            <%= form.check_box :sexta %> 
+            <%= form.label :sexta, "Sexta-feira" %>
+          </div>     
+        </td>
+        <td>
+          <div class="field">
+            <%= form.check_box :sabado %>  
+            <%= form.label :sabado, "Sábado" %>
+          </div>
+        </td>   
+              
+      </tr>
+    </table>
+  </fieldset>
  
   <div class="actions">
     <%= form.submit "Salvar" %>

@@ -115,7 +115,7 @@ $(document).ready(function(){
 
         $.ajax("/salas.json?sala_id=" + this.value)
         .done(function(data){            
-            $("#event_observacao").html("Informaçoes da sala escolhida: " + data[0].observacao);
+            $("#event_observacao").html("Informações gerais: " + data[0].observacao);
         })
         .fail(function(){
             alert("Falhou");
