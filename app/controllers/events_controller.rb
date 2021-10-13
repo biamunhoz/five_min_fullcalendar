@@ -170,22 +170,24 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
 
-    @sala = Sala.find_by(id: @event.sala_id)
-
-    bEnviaEmailConfirmacao = false
-
-    if @sala.confirmacao == true
-      @event.pendente = true
-      bEnviaEmailConfirmacao = true
-    else 
-      @event.pendente = false 
-    end
-
     @event.usuario_id =  current_user.id
 
     respond_to do |format|
 
         if @event.save
+
+          #
+          @sala = Sala.find_by(id: @event.sala_id)
+
+          bEnviaEmailConfirmacao = false
+      
+          if @sala.confirmacao == true
+            @event.pendente = true
+            bEnviaEmailConfirmacao = true
+          else 
+            @event.pendente = false 
+          end
+          #
 
           horaini = @event.timeini.to_time
           horafim = @event.timefim.to_time
@@ -198,37 +200,30 @@ class EventsController < ApplicationController
               when 0
                 if @event.domingo == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "111111111111111111111111111111111111"
                 end   
               when 1
                 if @event.segunda == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "22222222222222222222222222222222222"
                 end               
               when 2 
                 if @event.terca == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "33333333333333333333333333333333333"
                 end
               when 3 
                 if @event.quarta == true                  
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "444444444444444444444444444444444444"
                 end
               when 4 
                 if @event.quinta == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "555555555555555555555555555555555555"
                 end
               when 5 
                 if @event.sexta == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "6666666666666666666666666666666666666"
                 end
               when 6 
                 if @event.sabado == true
                   salvaAgendamento(day, day, horaini, horafim, @event.id)
-                  print "777777777777777777777777777777777777"
                 end             
               end
             
@@ -252,8 +247,69 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    bEnviaEmailConfirmacao = false
+
+    @sala = Sala.find_by(id: @event.sala_id)
+
+    if @sala.confirmacao == true
+      @event.pendente = true
+      bEnviaEmailConfirmacao = true
+    else 
+      @event.pendente = false 
+    end
+
+    @event.usuario_id =  current_user.id
+
     respond_to do |format|
       if @event.update(event_params)
+
+        horaini = @event.timeini.to_time
+        horafim = @event.timefim.to_time
+
+        diaini = @event.start_date.to_date
+        diafim = @event.end_date.to_date
+
+        delAgendamentos(@event.id)
+
+        diaini.upto(diafim) do |day|
+          case day.wday       
+            when 0
+              if @event.domingo == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end   
+            when 1
+              if @event.segunda == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end               
+            when 2 
+              if @event.terca == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end
+            when 3 
+              if @event.quarta == true                  
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end
+            when 4 
+              if @event.quinta == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end
+            when 5 
+              if @event.sexta == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end
+            when 6 
+              if @event.sabado == true
+                salvaAgendamento(day, day, horaini, horafim, @event.id)
+              end             
+            end
+          
+        end
+
+        if bEnviaEmailConfirmacao == true
+          NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
+          NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+        end
+        
         format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -289,6 +345,16 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, notice: 'Evento foi apagado com sucesso.' }
       format.json { head :no_content }
     end
+
+  end
+
+  def delAgendamentos(event)
+
+    @ags = Agendamento.where(event_id: event)
+
+    @ags.each do |ag|
+      ag.destroy
+    end 
 
   end
 

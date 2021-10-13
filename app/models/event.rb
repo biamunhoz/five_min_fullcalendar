@@ -1,28 +1,38 @@
 class Event < ApplicationRecord
     has_many :agendamentos, dependent: :delete_all
     belongs_to :sala
+    validates_presence_of :sala_id, message: "Campo obrigatório"
     validate :horariomarcado
     validate :tempolimite
+    validate :dia_is_checked
+
+
+    def dia_is_checked
+      errors.add(:base, "Por favor, selecione pelo menos um dia.") unless domingo || segunda || terca || quarta || quinta || sexta || sabado
+    end
 
     def tempolimite
       
-      @sala = Sala.find_by(id: self.sala_id)
+      if self.sala_id == nil
+        errors.add(:sala_id, "Por favor, escolha uma sala")  
+      else 
+        @sala = Sala.find_by(id: self.sala_id)
 
-      valorlimite = 0
-      if  @sala.limiteqtdeuso == true
-        valorlimite = @sala.limitehoras
-
-        valorlimite = valorlimite * 60
-
-        horaini = (self.timeini.hour * 60) + self.timeini.min
-        horafim = (self.timefim.hour * 60) + self.timefim.min
-
-        tempo = horafim - horaini
-
-        if tempo > valorlimite
-          errors.add(:timefim, "Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso.")
+        valorlimite = 0
+        if  @sala.limiteqtdeuso == true
+          valorlimite = @sala.limitehoras
+  
+          valorlimite = valorlimite * 60
+  
+          horaini = (self.timeini.hour * 60) + self.timeini.min
+          horafim = (self.timefim.hour * 60) + self.timefim.min
+  
+          tempo = horafim - horaini
+  
+          if tempo > valorlimite
+            errors.add(:timefim, "Há um limite de tempo definido, favor agendar com no máximo " + valorlimite.to_s + " minutos de uso.")
+          end
         end
-
       end
 
     end
