@@ -15,7 +15,7 @@
     <% @salas.each do |sala| %>
       <tr>
         <td><%= sala.nome %></td>
-        <td><%= sala.cor %></td>
+        <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>"></td>
         <td><%= sala.permissaoauto == true ? "Sim" : "Não" %></td>
         <td><%= sala.observacao %></td>
         <td><%= sala.confirmacao == true ? "Sim" : "Não" %></td>

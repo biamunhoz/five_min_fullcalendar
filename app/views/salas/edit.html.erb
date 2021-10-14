@@ -2,5 +2,5 @@
 
 <%= render 'form', sala: @sala %>
 
-<%= link_to 'Mostrar', @sala %> |
-<%= link_to 'Voltar', salas_path %>
+<%= link_to 'Mostrar', @sala, class: "btn btn-primary" %> |
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

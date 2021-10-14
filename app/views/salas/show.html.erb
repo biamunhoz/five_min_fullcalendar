@@ -7,7 +7,7 @@
 
 <p>
   <strong>Cor:</strong>
-  <%= @sala.cor %>
+  <input type="color" id="favcolor" name="favcolor" disabled value="<%= @sala.cor %>">
 </p>
 
 <p>
@@ -47,5 +47,5 @@
   <%= @sala.agenda.nome %>
 </p>
 
-<%= link_to 'Editar', edit_sala_path(@sala) %> |
-<%= link_to 'Voltar', salas_path %>
+<%= link_to 'Editar', edit_sala_path(@sala), class: 'btn btn-warning' %> |
+<%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>
