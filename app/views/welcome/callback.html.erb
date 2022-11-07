@@ -15,6 +15,7 @@
         <td><%= agenda.nome %></td>
         <td><%= agenda.observacao %></td>
         <td><%= link_to "Inscrição", inscricao_path(agenda) %> </td>
+        <td><%= link_to 'Calendário', eventoagenda_path(agenda) %>  </td>
       </tr>
     <% end %>
   </tbody>

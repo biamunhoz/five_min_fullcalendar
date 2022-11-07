@@ -1,10 +1,20 @@
 <%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
+<br>
+<br>
 
 <% @dadosagenda.each do |agenda| %>
-    <h3>Agenda - <%= agenda.nome %></h3> 
-    <p>Dados da agenda: <%= agenda.observacao %></p>
+    <p><b><%= agenda.nome %></b> - <%= agenda.observacao %> </p> 
 <% end %>
 
-<br>
+
+<table>
+    <tr>
+        <% @salasdaagenda.each do |sala|  %>            
+            <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  <%= sala.nome %> </td>
+        <% end %>
+    </tr>
+</table>
+
+
 
 <div id="calendario"></div>

@@ -46,9 +46,8 @@
       </div>
     <% end %>
 
-    <div class="container">
+    <div class="container-fluid">
       <% if session[:login] != nil %>
-      <br/>
         <p>Você está logado com o usuário: <b><%= session[:login] %></b> </p>
       <% end %>
       <%= yield %>

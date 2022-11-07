@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-
-
 <%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
 
 <%= link_to 'Lista de eventos', listagem_path, class: 'btn btn-light'  %>
+
+<br>
+<br>
+<table>
+    <tr>
+        <% @salasdaagenda.each do |sala|  %>            
+            <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  <%= sala.nome %> </td>
+        <% end %>
+    </tr>
+</table>
 
 <div id="calendar"></div>

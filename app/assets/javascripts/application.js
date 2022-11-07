@@ -71,6 +71,7 @@ $(function () {
         timeFormat: "HH:mm",
 
         /*eventColor: '#ef63b9',*/
+        height: 750,
 
         eventTextColor: '#000000',
     });
@@ -104,6 +105,7 @@ $(function () {
         timeFormat: "HH:mm",
 
         /*eventColor: '#ef63b9',*/
+        height: 750,
 
         eventTextColor: '#000000',
     });
