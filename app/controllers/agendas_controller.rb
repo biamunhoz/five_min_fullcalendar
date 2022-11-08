@@ -89,7 +89,7 @@ class AgendasController < ApplicationController
   ### Adiciona usuario em salas com permissao automatica
   def addpermissao(agenda, usuario)
 
-    @salas = Salas.where(agenda_id: agenda, permissaoauto: true)
+    @salas = Sala.where(agenda_id: agenda, permissaoauto: true)
 
     @salas.each do |s|
 
