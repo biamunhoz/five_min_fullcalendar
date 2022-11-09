@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   #  agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
 
     #o campo title concatenado é onde criamos o que vai ser mostrado no calendário
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' até ', events.timefim) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' a ', events.timefim) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
     
@@ -106,7 +106,7 @@ class EventsController < ApplicationController
 
   def resultagenda
     
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 

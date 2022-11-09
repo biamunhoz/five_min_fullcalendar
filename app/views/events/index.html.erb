@@ -1,17 +1,29 @@
 <p id="notice"><%= notice %></p>
 
+
+<div id="calendar"></div>
+
+<br>
 <%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
 
 <%= link_to 'Lista de eventos', listagem_path, class: 'btn btn-light'  %>
+<br>
+<br>
 
-<br>
-<br>
-<table>
-    <tr>
-        <% @salasdaagenda.each do |sala|  %>            
-            <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  <%= sala.nome %> </td>
+<table >
+    <% agendaatual = "" %>
+    <% @salasdaagenda.each do |sala|  %>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+        <tr>
+            <td><b><%= sala.agenda.nome %> </b></td>
+            <% agendaatual = sala.agenda.nome %>
+        </tr> 
+        <tr>
+        <% end %>        
+            <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  <%= sala.nome %></td>
+        <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
+            </tr>
         <% end %>
-    </tr>
+    <% end %>
+    
 </table>
-
-<div id="calendar"></div>

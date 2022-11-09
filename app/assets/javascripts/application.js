@@ -71,7 +71,7 @@ $(function () {
         timeFormat: "HH:mm",
 
         /*eventColor: '#ef63b9',*/
-        height: 750,
+        height: 600,
 
         eventTextColor: '#000000',
     });
