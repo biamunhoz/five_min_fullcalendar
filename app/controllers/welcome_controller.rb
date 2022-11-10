@@ -45,7 +45,8 @@ class WelcomeController < ApplicationController
     log_in loginUsuario
 
     #@agendas = carrega_agendas
-    @agendas = Agenda.all
+    #Não pode carregar tudo tem que considerar o que é agenda privada e pública aqui
+    @agendas = Agenda.where(apresentacaotelaini: true)
 
   end
 
