@@ -28,9 +28,10 @@
           <% if session[:admingeral] == true %>
             <li class="navbar-brand mb-0 h1">  <%= link_to "Usuários ", usuarios_path, class: "nav-link" %></li>
             <li class="navbar-brand mb-0 h1"> <%= link_to "Perfil ", perfils_path, class: "nav-link" %></li>
-            <li class="navbar-brand mb-0 h1"> <%= link_to "Agendas ", agendas_path, class: "nav-link" %></li>
           <% end %>
-        
+
+          
+          <li class="navbar-brand mb-0 h1"> <%= link_to "Agendas ", agendas_path, class: "nav-link" %></li>
           <li class="navbar-brand mb-0 h1"> <%= link_to "Minhas agendas - Eventos ", events_path, class: "nav-link" %></li>
           <li class="navbar-brand mb-0 h1"> <%= link_to "Salas ", salas_path, class: "nav-link" %></li>
           <li class="navbar-brand mb-0 h1"> <%= link_to "Sair " , logout_path, class: "nav-link" %></li>

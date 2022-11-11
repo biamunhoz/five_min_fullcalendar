@@ -7,7 +7,9 @@
       <th>Usuário</th>
       <th>Status da inscrição</th>
       <th>Data da inscrição</th>
-      <th colspan="2">Alterar status</th>     
+      <% if session[:admingeral] == true %>
+        <th colspan="2">Alterar status</th>
+      <% end %>     
     </tr>
   </thead>
 
@@ -18,8 +20,11 @@
         <td><%= ins.usuario.nomeUsuario %> </td>
         <td><%= ins.tipo %></td>
         <td><%= ins.created_at.strftime("%d/%m/%Y")  %> </td>
-        <td><%= link_to 'Negar', alternegar_path(:id => ins.id) %> </td>
-        <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id) %> </td>                        
+
+        <% if session[:admingeral] == true %>
+          <td><%= link_to 'Negar', alternegar_path(:id => ins.id) %> </td>
+          <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id) %> </td>        
+        <% end %>                
       </tr>
     <% end %>
   </tbody>

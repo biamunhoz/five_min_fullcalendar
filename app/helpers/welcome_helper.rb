@@ -16,7 +16,6 @@ module WelcomeHelper
       end 
     end
     
-
   end
 
   #destroi a sessão criada na def anterior

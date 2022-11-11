@@ -13,8 +13,8 @@
       <th></th>
       <th></th>
       <th></th>
-      <th></thead>
       <% if session[:admingeral] == true %>
+        <th></th>
         <th></th>
         <th></th>
       <% end %>
@@ -28,12 +28,13 @@
         <td><%= agenda.apresentacaotelaini == true ? "Sim" : "Não" %></td>
         <td><%= agenda.observacao %></td>
         <td><%= agenda.tipo %></td>
-        <td><%= link_to 'Inscrição', inscricao_path(agenda) %> </td>
+
         <td><%= link_to 'Salas', versalas_path(agenda) %> </td>
         <td><%= link_to 'Informações', agenda %></td>
         <td><%= link_to 'Calendário', eventoagenda_path(agenda) %>  </td>
         <td><%= link_to 'Inscritos', verinscritos_path(agenda) %></td>
         <% if session[:admingeral] == true %>
+          <td><%= link_to 'Inscrição', inscricao_path(agenda) %> </td>
           <td><%= link_to 'Editar', edit_agenda_path(agenda) %></td>
           <td><%= link_to 'Apagar', agenda, method: :delete, data: { confirm: 'Você tem certeza?' } %></td>
         <% end %>
