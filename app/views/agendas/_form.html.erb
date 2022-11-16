@@ -26,6 +26,10 @@
     <%= form.select :tipo,([['Publica'],['Privada']]) %>
   </div>
 
+  <div class="field">
+    <%= form.label :validaextra, 'Exige validação de campos extra' %>
+    <%= form.check_box :validaextra %>
+  </div>
 
   <div class="field">
     <%= form.label :observacao, 'Observações gerais' %>
