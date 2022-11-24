@@ -7,8 +7,10 @@
       <th>Usuário</th>
       <th>Status da inscrição</th>
       <th>Data da inscrição</th>
-      <% if session[:admingeral] == true %>
+      <th>Tipo de Usuário</th>
+      <% if session[:admingeral] == true or @souadmin == true %>
         <th colspan="2">Alterar status</th>
+        <th>Tipo de Usuário </th>
       <% end %>     
     </tr>
   </thead>
@@ -17,16 +19,19 @@
     <% @insc.each do |ins| %>
       <tr>
         <td><%= ins.agenda.nome %></td>
-        <td><%= ins.usuario.nomeUsuario %> </td>
+        <td><%= ins.usuario.nomeUsuario %></td>
         <td><%= ins.tipo %></td>
         <td><%= ins.created_at.strftime("%d/%m/%Y")  %> </td>
-
-        <% if session[:admingeral] == true %>
+        <td><%= ins.usertipo %></td>
+        <% if session[:admingeral] == true or @souadmin == true %>
           <td><%= link_to 'Negar', alternegar_path(:id => ins.id) %> </td>
           <td><%= link_to 'Inscrever', alterinscrito_path(:id => ins.id) %> </td>        
+          <td><%= link_to 'Trocar', alterusertipo_path(:id => ins.id) %> </td>
         <% end %>                
       </tr>
     <% end %>
   </tbody>
 </table>
+
+
 

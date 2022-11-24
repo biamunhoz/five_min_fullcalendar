@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'verinscritos/:id' => 'agendas#verinscritos', as: 'verinscritos'
   get 'alternegar/:id' => 'agendas#alternegar', as: 'alternegar'
   get 'alterinscrito/:id' => 'agendas#alterinscrito', as: 'alterinscrito'
+  get 'alterusertipo/:id' => 'agendas#alterusertipo', as: 'alterusertipo'
 
   get 'listagem' => 'events#listagem', as: 'listagem'
   #get 'eventoagenda/:id' => 'events#eventoagenda', as: 'eventoagenda'

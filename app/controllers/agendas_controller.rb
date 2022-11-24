@@ -28,14 +28,32 @@ class AgendasController < ApplicationController
       if @valida.nil?
 
         if @tipoagenda.tipo == 'Publica'
-          @insc = Inscricao.new
-          @insc.usuario_id = current_user.id
-          @insc.agenda_id = @agenda
-          @insc.tipo = "Inscrito"
-          @insc.save!
 
-          addpermissao(@agenda, current_user.id)
-          @confirmado = true
+          if @tipoagenda.validaextra == true
+
+            @insc = Inscricao.new
+            @insc.usuario_id = current_user.id
+            @insc.agenda_id = @agenda
+            @insc.tipo = "Pendente"
+            @insc.usertipo = "Simples"
+            @insc.save!
+  
+            NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+            @confirmado = false
+
+          else
+
+            @insc = Inscricao.new
+            @insc.usuario_id = current_user.id
+            @insc.agenda_id = @agenda
+            @insc.tipo = "Inscrito"
+            @insc.usertipo = "Simples"
+            @insc.save!
+
+            NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+            addpermissao(@agenda, current_user.id)
+            @confirmado = true
+          end 
 
         else
 
@@ -43,6 +61,7 @@ class AgendasController < ApplicationController
           @insc.usuario_id = current_user.id
           @insc.agenda_id = @agenda
           @insc.tipo = "Pendente"
+          @insc.usertipo = "Simples"
           @insc.save!
 
           NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
@@ -63,12 +82,38 @@ class AgendasController < ApplicationController
 
     @insc = Inscricao.joins(:usuario).joins(:agenda).where(agenda_id: @agenda)
 
+    @souadmin = false 
+    @insc.each do |inscricao|
+      if inscricao.usertipo == "Admin"
+        if inscricao.usuario_id == current_user.id
+          @souadmin = true 
+        end
+      end 
+    end
+
   end
+
+  #fazer rotina
+  def alterusertipo 
+  
+    @insc = Inscricao.find_by(:id => params[:id])
+    
+    if @insc.usertipo == "Simples"
+      @insc.usertipo = "Admin"
+    else 
+      @insc.usertipo = "Simples"
+    end 
+
+    @insc.save!
+
+  end 
+
 
   def alternegar
     @insc = Inscricao.find_by(:id => params[:id])
     
     @insc.tipo = "Negado"
+    @insc.usertipo = "Simples"
     @insc.save!
 
     NotificaMailer.inscricaoagenda(@insc.id, "Rejeitada").deliver_now!
@@ -80,6 +125,7 @@ class AgendasController < ApplicationController
     @insc = Inscricao.find_by(:id => params[:id])
 
     @insc.tipo = "Inscrito"
+    @insc.usertipo = "Simples"
     @insc.save!
 
     NotificaMailer.inscricaoagenda(@insc.id, "Aprovada").deliver_now!
@@ -165,7 +211,7 @@ class AgendasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def agenda_params
-      params.require(:agenda).permit(:nome, :apresentacaotelaini, :observacao, :tipo, :validaextra)
+      params.require(:agenda).permit(:nome, :apresentacaotelaini, :observacao, :tipo, :validaextra, :usertipo)
     end
 end
 
