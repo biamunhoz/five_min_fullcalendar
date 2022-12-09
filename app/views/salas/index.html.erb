@@ -10,8 +10,9 @@
       <th>Permissão Automática</th>
       <th>Observação</th>
       <th>Confirmação</th>
-      <th>Avisar horário vago</th/>
+      <th>Avisar horário vago</th>
       <th>Limite de uso</th>
+      <th>Bloquear fora do intervalo</th>
       <th>Agendas</th>
       <% if session[:admingeral] == true %>
         <th colspan="2"></th>
@@ -30,6 +31,7 @@
         <td><%= sala.confirmacao == true ? "Exige confirmar" : "Não exige confirmar" %></td>
         <td><%= sala.avisoadmhoravaga == true ? "Sim" : "Não" %> </td>
         <td><%= sala.limiteqtdeuso == true ? "Sim" : "Não" %></td>
+        <td><%= sala.bloqforaintervalo == true ? "Sim" : "Não" %></td>
         <td><%= sala.agenda.nome %></td>
         <td><%= link_to 'Mostrar', sala, class: "btn btn-primary" %></td>
         <% if session[:admingeral] == true %>

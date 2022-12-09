@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_23_121235) do
+ActiveRecord::Schema.define(version: 2022_12_08_174924) do
 
   create_table "agendamentos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "data_inicio"
@@ -96,6 +96,12 @@ ActiveRecord::Schema.define(version: 2022_11_23_121235) do
     t.boolean "avisoadmhoravaga", default: false
     t.boolean "limiteqtdeuso", default: false
     t.integer "limitehoras"
+    t.boolean "bloqforaintervalo", default: false
+    t.time "prihoraini"
+    t.time "prihorafim"
+    t.time "seghoraini"
+    t.time "seghorafim"
+    t.integer "valorinterval"
   end
 
   create_table "tipo_vinculos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

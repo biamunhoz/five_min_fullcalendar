@@ -48,7 +48,37 @@
 
   <div class="field">
     <%= form.label :limitehoras, "Horas" %>
-    <%= form.number_field :limitehoras, max: 8, min: 1 %>
+    <%= form.number_field :limitehoras, max: 8, min: 0 %>
+  </div>
+
+  <div class="field">
+      <%= form.label :bloqforaintervalo, "Bloquear fora do intervalo" %>
+      <%= form.check_box :bloqforaintervalo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prihoraini, "Primeiro horário inicial" %>
+    <%= form.time_select :prihoraini %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prihorafim, "Primeiro horário final" %>
+    <%= form.time_select :prihorafim %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seghoraini, "Segundo horário inicial" %>
+    <%= form.time_select :seghoraini %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seghorafim, "Segundo horário final" %>
+    <%= form.time_select :seghorafim %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valorinterval, "Valor do intervalo entre as horas" %>
+    <%= form.number_field :valorinterval, max: 8, min: 1 %>
   </div>
 
   <div class="field">
