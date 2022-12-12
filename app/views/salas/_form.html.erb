@@ -58,22 +58,22 @@
 
   <div class="field">
     <%= form.label :prihoraini, "Primeiro horário inicial" %>
-    <%= form.time_select :prihoraini %>
+    <%= form.time_select :prihoraini , {:default => {:hour => '08', :minute => '00'}}%>
   </div>
 
   <div class="field">
     <%= form.label :prihorafim, "Primeiro horário final" %>
-    <%= form.time_select :prihorafim %>
+    <%= form.time_select :prihorafim, {:default => {:hour => '12', :minute => '00'}} %>
   </div>
 
   <div class="field">
     <%= form.label :seghoraini, "Segundo horário inicial" %>
-    <%= form.time_select :seghoraini %>
+    <%= form.time_select :seghoraini, {:default => {:hour => '14', :minute => '00'}} %>
   </div>
 
   <div class="field">
     <%= form.label :seghorafim, "Segundo horário final" %>
-    <%= form.time_select :seghorafim %>
+    <%= form.time_select :seghorafim, {:default => {:hour => '17', :minute => '00'}} %>
   </div>
 
   <div class="field">
