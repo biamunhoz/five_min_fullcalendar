@@ -1,14 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Lista de eventos', listagem_path, class: 'btn btn-light'  %>
 
 <div id="calendar"></div>
 
 <br>
-<%= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %>
+<!-- %= link_to 'Novo Evento', new_event_path, class: 'btn btn-info'  %-->
 
-<%= link_to 'Lista de eventos', listagem_path, class: 'btn btn-light'  %>
-<br>
-<br>
+
+<!--br>
+<br -->
 
 <table >
     <% agendaatual = "" %>
@@ -20,7 +21,7 @@
         </tr> 
         <tr>
         <% end %>        
-            <td><input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  <%= sala.nome %></td>
+            <td> <%= link_to 'Marcar', new_event_path(:idsala => sala.id), class: 'btn btn-info'  %>  <%= sala.nome %> <input type="color" id="favcolor" name="favcolor" disabled value="<%= sala.cor %>">  </td>
         <% if agendaatual == ""  or agendaatual != sala.agenda.nome  %>
             </tr>
         <% end %>

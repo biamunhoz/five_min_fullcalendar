@@ -158,15 +158,60 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @salas = salaspermitidas
+
+    salasel = params[:idsala]
+
+    #@salas = salaspermitidas
+
+    #@salas = Sala.where(" id in (?) ", salasel)
+
+    @sala = Sala.find(salasel)
+
+    # start_time = DateTime.parse("9 AM").to_i
+    # start_interval = DateTime.parse("11 AM").to_i
+    # end_interval = DateTime.parse("1 PM").to_i
+    # end_time = DateTime.parse("3 PM").to_i
+
+    #@values = (start_time..end_time).step(15.minutes).select{|t| t <= start_interval || t >= end_interval }
+
+    if @sala.bloqforaintervalo == true 
+      start_time = @sala.prihoraini.to_i
+      start_interval = @sala.prihorafim.to_i
+      end_interval = @sala.seghoraini.to_i
+      end_time = @sala.seghorafim.to_i
+      @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
+    else
+      start_time = DateTime.parse("0 AM").to_i
+      start_interval = DateTime.parse("11:55 AM").to_i
+      end_interval = DateTime.parse("12 PM").to_i
+      end_time = DateTime.parse("23:55 PM").to_i
+      @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
+    end
+
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
+
+    @sala = Sala.find(@event.sala_id)
+
+    if @sala.bloqforaintervalo == true 
+      start_time = @sala.prihoraini.to_i
+      start_interval = @sala.prihorafim.to_i
+      end_interval = @sala.seghoraini.to_i
+      end_time = @sala.seghorafim.to_i
+      @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
+    else
+      start_time = DateTime.parse("0 AM").to_i
+      start_interval = DateTime.parse("11:55 AM").to_i
+      end_interval = DateTime.parse("12 PM").to_i
+      end_time = DateTime.parse("23:55 PM").to_i
+      @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
+    end
+ 
     @salas = salaspermitidas
   end
-
 
   # POST /events
   # POST /events.json

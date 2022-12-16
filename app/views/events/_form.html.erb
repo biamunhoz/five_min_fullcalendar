@@ -11,13 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field observacao">
+  <!--div class="field observacao">
     <%= form.label :sala_id, "Sala/Equipamento" %>
     <%= form.collection_select :sala_id, Sala.where(" id in (?)", carregarsalas), :id, :nome, { include_blank: 'Selecione a sala' } %>
 
     <p id="event_observacao">
     </p>
 
+  </div-->
+
+  <div class="form-group">
+    <%= form.label :sala_id, "Sala escolhida: " %><br>
+    <%= form.hidden_field :sala_id, value: @sala.id, class: 'form-control' %>
+    <%= @sala.nome + " - " + @sala.observacao  %>
   </div>
 
   <div class="field">
@@ -38,13 +44,18 @@
   <div class="field">
     <%= form.label :start_date, "Data inicial" %>
     <%= form.date_select :start_date %> -
-    <%= form.time_select :timeini %>
+    <!-- %= form.time_select :timeini, {start_hour: 8, end_hour: 16} % -->
+    <%= form.select("timeini", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timeini == nil ? "" : form.object.timeini.to_datetime.strftime("%H:%M") )) %>
   </div>
 
   <div class="field">
     <%= form.label :end_date, "Data final" %>
-    <%= form.date_select :end_date %> -
-    <%= form.time_select :timefim  %>
+    <%= form.date_select :end_date %> -    
+    <!-- %= select_tag :timefim, options_for_select(@values.map{ |t| [ Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime ]}) %-->
+    <!-- %= form.select("timefim", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M") ]}, :selected => form.object.timefim.to_datetime.strftime("%H:%M"))) %-->
+    
+    <%= form.select("timefim", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timefim == nil ? "" : form.object.timefim.to_datetime.strftime("%H:%M") )) %>
+
   </div>
 
   <fieldset>
