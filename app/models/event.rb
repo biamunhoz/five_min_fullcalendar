@@ -52,9 +52,9 @@ class Event < ApplicationRecord
       @horafim = self.timefim
   
       if new_record?
-        @eventosdasala = Event.where(sala_id: self.sala_id).where(" start_date >= ? or end_date >= ? " , self.start_date, self.end_date)
+        @eventosdasala = Event.where(sala_id: self.sala_id).where(" desmarcado = false and start_date >= ? or end_date >= ? " , self.start_date, self.end_date)
       else
-        @eventosdasala = Event.where(sala_id: self.sala_id).where(" start_date >= ? or end_date >= ? " , self.start_date, self.end_date).where.not(id: self.id )
+        @eventosdasala = Event.where(sala_id: self.sala_id).where(" desmarcado = false and start_date >= ? or end_date >= ? " , self.start_date, self.end_date).where.not(id: self.id )
       end  
 
       ids = Array.new
@@ -95,7 +95,6 @@ class Event < ApplicationRecord
             when 3
               if self.quarta == true
                 if verificaTempo(day, @horaini, @horafim)
-                  print " quarta feira"
                   bAchou = true
                   break
                 end 

@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   #  agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
 
     #o campo title concatenado é onde criamos o que vai ser mostrado no calendário
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' a ', events.timefim) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where(" desmarcado = false and sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' a ', events.timefim) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
     
@@ -76,7 +76,7 @@ class EventsController < ApplicationController
 
   def listagem
 
-    @events = Event.where("sala_id in (?)", salaspermitidas)
+    @events = Event.where("desmarcado = false and sala_id in (?)", salaspermitidas)
 
   end
 
@@ -106,7 +106,7 @@ class EventsController < ApplicationController
 
   def resultagenda
     
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,events.timeini, ' até ', events.timefim) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
@@ -285,7 +285,7 @@ class EventsController < ApplicationController
           format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
           format.json { render :show, status: :created, location: @event }
         else
-          format.html { render :new }
+          format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário já reservado.' }
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end 
       end      
@@ -361,7 +361,7 @@ class EventsController < ApplicationController
         format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @event }
       else
-        format.html { render :edit }
+        format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário já reservado.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -388,7 +388,13 @@ class EventsController < ApplicationController
 
     end 
 
-    @event.destroy
+    #@event.destroy
+
+    delAgendamentos(@event.id)
+
+    @event.desmarcado = true
+    @event.save!
+
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Evento foi apagado com sucesso.' }
       format.json { head :no_content }
@@ -405,6 +411,27 @@ class EventsController < ApplicationController
     end 
 
   end
+
+  def relgeral
+
+    @de = params[:valorde]
+    @ate = params[:valorate]
+    tipo = ActiveModel::Type::Boolean.new.cast(params[:marcado])
+    @tipomarcacao = tipo
+    @sala = params[:sala]
+
+    if @de != nil 
+      @resultado = Event.joins(" inner join salas on events.sala_id = salas.id ")
+      .joins(" inner join usuarios on events.usuario_id = usuarios.id ")
+      .where("desmarcado = ? and sala_id = ? and start_date >= ? and end_date <= ?", tipo, @sala, @de, @ate)
+      .select(" Concat(events.title,' - ' ,events.registropara) as title, 
+      events.start_date, events.timeini, 
+      events.end_date, events.timefim, events.descricao, events.usuario_id, salas.nome, usuarios.nomeUsuario ")
+    end 
+
+
+  end 
+
 
   def salvaAgendamento(start_date, end_date, horaini, horafim, event_id)
 

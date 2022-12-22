@@ -40,6 +40,9 @@ Rails.application.routes.draw do
 
   get 'apresentasala' => 'events#apresentasala'
 
+  get 'relgeral' => 'events#relgeral', as: 'relgeral'
+
+
   root 'welcome#login'
 
   
