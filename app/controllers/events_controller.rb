@@ -11,6 +11,13 @@ class EventsController < ApplicationController
   #  events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
   #  agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
 
+    @salas = Sala.joins(:permissaos).where(" permissaos.perfil_id in (1,2) and permissaos.usuario_id = ? ", current_user.id).select("salas.id")
+  
+    @ehadmindesala = false 
+    @salas.each do |ehadmin|
+      @ehadmindesala = true
+    end
+
     #o campo title concatenado é onde criamos o que vai ser mostrado no calendário
     @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where(" desmarcado = false and sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.timeini, ' a ', events.timefim) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 

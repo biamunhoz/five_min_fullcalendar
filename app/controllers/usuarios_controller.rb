@@ -4,7 +4,28 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
-    @usuarios = Usuario.all
+    @useradmin = false 
+    @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? and usertipo = 'Admin'", session[:login]).select("agenda_id")
+    
+    agendas = Array.new
+
+    @inscricao.each do |i|
+      agendas << i.agenda_id
+      @useradmin = true
+    end 
+    
+    userdasagendas = Array.new
+    if session[:admingeral] == true
+      @usuarios = Usuario.all
+    elsif @useradmin == true 
+      @inscritos = Inscricao.where(" agenda_id in (?) ", agendas)
+      @inscritos.each do |is|
+        userdasagendas << is.usuario_id 
+      end 
+      @usuarios = Usuario.where("id in (?) ", userdasagendas)
+    else
+      @usuarios = Usuario.where(loginUsuario: session[:login])
+    end 
   end
 
   # GET /usuarios/1

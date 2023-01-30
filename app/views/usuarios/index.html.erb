@@ -14,6 +14,9 @@
       <th>Telefone</th>
       <th>Ramal</th>
       <th></th>
+      <% if session[:admingeral] == true %>
+        <th></th>
+      <% end %>      
     </tr>
   </thead>
 
@@ -29,6 +32,9 @@
         <td><%= usuario.numeroTelefoneFormatado %></td>
         <td><%= usuario.ramalUsp %></td>
         <td><%= link_to 'Detalhes', usuario, class: 'btn btn-info'  %></td>
+        <% if session[:admingeral] == true %> 
+          <td><%= link_to 'Apagar', usuario, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger' %></td>
+        <% end %>        
       </tr>
     <% end %>
   </tbody>

@@ -5,6 +5,7 @@ class AgendasController < ApplicationController
   # GET /agendas.json
   def index
 
+    @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? ", session[:login]).select("usertipo, agenda_id")
     if session[:admingeral] == true
       @agendas = Agenda.all
     else

@@ -24,14 +24,26 @@
         <td><%= event.start_date.strftime("%d/%m/%Y") + " - " + event.timeini.strftime("%H:%M") %></td>
 
         <td><%= event.end_date.strftime("%d/%m/%Y") + " - " + event.timefim.strftime("%H:%M")  %></td>
+
         <% if event.pendente == true %>
-          <td><%= link_to 'Negar ', negarevento_path(event), data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' } %> | <%= link_to 'Confirmar ', confirmarevento_path(event) %> </td>
+          <% if tempermissaosuperadmin(event.sala.id) %>
+            <td><%= link_to 'Negar ', negarevento_path(event), data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' } %> | <%= link_to 'Confirmar ', confirmarevento_path(event) %> </td>
+          <% else %>
+            <td>Esperando confirmação</td>
+          <% end %>
         <% else %>
           <td> Confirmado </td>
         <% end %>
-        <td><%= link_to 'Editar evento', edit_event_path(event), class: 'btn btn-warning'  %></td>
-        <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' }, class: 'btn btn-danger' %></td>
-        <td><%= link_to 'Agendamentos', agendamentos_path(event), class: 'btn btn-light'  %> </td>
+        <% if tempermissaosuperadmin(event.sala.id) %>
+          <td><%= link_to 'Editar evento', edit_event_path(event), class: 'btn btn-warning'  %></td>
+          <td><%= link_to 'Apagar evento', event, method: :delete, data: { confirm: 'Essa ação irá apagar todos os agendamentos deste evento. Você tem certeza ?' }, class: 'btn btn-danger' %></td>
+          <td><%= link_to 'Agendamentos', agendamentos_path(event), class: 'btn btn-light'  %> </td>
+        <% else %>
+          <td></td>
+          <td></td>
+          <td></td>        
+        <% end %>
+        
       </tr>
     <% end %>
   </tbody>
