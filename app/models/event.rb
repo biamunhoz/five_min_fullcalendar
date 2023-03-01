@@ -5,6 +5,40 @@ class Event < ApplicationRecord
     validate :horariomarcado
     validate :tempolimite
     validate :dia_is_checked
+    validate :ehfdsouferiado
+
+
+    def ehfdsouferiado
+
+      @configsala = Sala.find(self.sala_id)
+
+      if @configsala.disablefds == true
+
+        self.start_date.to_date.upto(self.end_date.to_date) do |day|
+
+          if feriado(day)
+            errors.add(:sala_id, "Impossível marcar no feriado")
+            break
+          end
+
+          case day.wday       
+          when 0
+            if self.domingo == true
+              print "Domingo - Fim de semanaaaaaaaaaaaaaaaaaaaaaaa"
+              errors.add(:sala_id, "Impossível marcar no feriado")
+              break
+            end 
+          when 6
+            if self.sabado == true
+              print "Sabado - Fim de semanaaaaaaaaaaaaaaaaaaaaaaa"
+              errors.add(:sala_id, "Impossível marcar no feriado")
+              break              
+            end 
+          end 
+        end 
+      end
+
+    end 
 
 
     def dia_is_checked
@@ -62,6 +96,8 @@ class Event < ApplicationRecord
         ids << e.id
       end
   
+      @configsala = Sala.find(self.sala_id)
+      
       if !ids.empty?
       
         @agendacad = Agendamento.where(" event_id in (?) ", ids)
@@ -73,11 +109,17 @@ class Event < ApplicationRecord
           case day.wday       
             when 0
               if self.domingo == true
-                if verificaTempo(day, @horaini, @horafim) 
+                
+                if @configsala.disablefds == true
                   bAchou = true
                   break
+                  if verificaTempo(day, @horaini, @horafim) 
+                    bAchou = true
+                    break
+                  end
+
                 end 
-              end    
+              end     
             when 1
               if self.segunda == true
                 if verificaTempo(day, @horaini, @horafim)
@@ -115,11 +157,15 @@ class Event < ApplicationRecord
               end 
             when 6
               if self.sabado == true
-                if verificaTempo(day, @horaini, @horafim)
+                if @configsala.disablefds == true
                   bAchou = true
                   break
-                end
-              end  
+                  if verificaTempo(day, @horaini, @horafim)
+                    bAchou = true
+                    break
+                  end
+                end 
+              end 
             end
         end  
       end 
@@ -128,6 +174,49 @@ class Event < ApplicationRecord
   
     end
 
+    def feriado(dia)
+      
+      bAchou = false
+
+      print "----------------------------------FERIADOOOOOOOOOOOO"
+      print dia 
+      print "----------------------------------"
+      case dia.month      
+      when 1
+        if dia.day == 1 or dia.day == 25
+          bAchou = true
+        end 
+      when 4
+        if dia.day == 21
+          bAchou = true
+        end 
+      when 5
+        if dia.day == 1 
+          bAchou = true
+        end 
+      when 7
+        if dia.day == 9
+          bAchou = true
+        end 
+      when 9
+        if dia.day == 7
+          bAchou = true
+        end 
+      when 10
+        if dia.day == 12
+          bAchou = true
+        end 
+      when 11
+        if dia.day == 2 or dia.day == 15 or dia.day == 20
+          bAchou = true
+        end 
+      when 12
+        if dia.day == 25
+          bAchou = true
+        end 
+      end 
+    end
+    
     def verificaTempo(dia, horaini, horafim)
 
       bAchou = false

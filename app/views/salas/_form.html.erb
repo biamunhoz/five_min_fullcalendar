@@ -82,6 +82,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :disablefds, "Desabilitar fim de semana/feriado" %>
+    <%= form.check_box :disablefds %>
+  </div>
+  
+  <div class="field">
     <%= form.label :agenda_id, "Vincular na agenda" %>
     <%= form.select("agenda_id", Agenda.all.collect {|a| [ a.nome, a.id ] })  %>
   </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_20_123438) do
+ActiveRecord::Schema.define(version: 2023_02_08_185035) do
 
   create_table "agendamentos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "data_inicio"
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2022_12_20_123438) do
     t.time "seghoraini"
     t.time "seghorafim"
     t.integer "valorinterval"
+    t.boolean "disablefds", default: false
   end
 
   create_table "tipo_vinculos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -121,6 +122,25 @@ ActiveRecord::Schema.define(version: 2022_12_20_123438) do
     t.index ["usuario_id"], name: "index_tipo_vinculos_on_usuario_id"
   end
 
+  create_table "todosusers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "us_externos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "nomeUsuario"
+    t.string "email"
+    t.string "password_digest"
+    t.bigint "todosuser_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "cpf"
+    t.string "endereco"
+    t.string "tel_contato"
+    t.index ["todosuser_id"], name: "index_us_externos_on_todosuser_id"
+  end
+
   create_table "usuarios", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nomeUsuario"
     t.string "loginUsuario"
@@ -132,6 +152,11 @@ ActiveRecord::Schema.define(version: 2022_12_20_123438) do
     t.string "ramalUsp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "todosuser_id"
+    t.string "cpf"
+    t.string "endereco"
+    t.string "tel_contato"
+    t.index ["todosuser_id"], name: "index_usuarios_on_todosuser_id"
   end
 
   add_foreign_key "agendamentos", "events"
@@ -141,4 +166,5 @@ ActiveRecord::Schema.define(version: 2022_12_20_123438) do
   add_foreign_key "permissaos", "salas"
   add_foreign_key "permissaos", "usuarios"
   add_foreign_key "tipo_vinculos", "usuarios"
+  add_foreign_key "us_externos", "todosusers"
 end

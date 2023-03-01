@@ -43,18 +43,18 @@
 
   <div class="field">
     <%= form.label :start_date, "Data inicial" %>
-    <%= form.date_select :start_date %> -
+    <%= form.date_field :start_date, min: Date.today %> -
     <!-- %= form.time_select :timeini, {start_hour: 8, end_hour: 16} % -->
     <%= form.select("timeini", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timeini == nil ? "" : form.object.timeini.to_datetime.strftime("%H:%M") )) %>
   </div>
 
   <div class="field">
     <%= form.label :end_date, "Data final" %>
-    <%= form.date_select :end_date %> -    
+    <%= form.date_field :end_date, min: Date.today %> -    
     <!-- %= select_tag :timefim, options_for_select(@values.map{ |t| [ Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime ]}) %-->
     <!-- %= form.select("timefim", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M") ]}, :selected => form.object.timefim.to_datetime.strftime("%H:%M"))) %-->
     
-    <%= form.select("timefim", options_for_select(@values.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timefim == nil ? "" : form.object.timefim.to_datetime.strftime("%H:%M") )) %>
+    <%= form.select("timefim", options_for_select(@valuesfim.map{ |t| [Time.at(t).utc.to_datetime.strftime("%H:%M"), Time.at(t).utc.to_datetime.strftime("%H:%M")]}, :selected => form.object.timefim == nil ? "" : form.object.timefim.to_datetime.strftime("%H:%M") )) %>
 
   </div>
 

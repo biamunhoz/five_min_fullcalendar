@@ -88,6 +88,11 @@
 <% end %>
 
 <p>
+  <strong>Desabilitar fim de semana/feriado:</strong>
+  <%= @sala.disablefds == true ? "Sim" : "Não"  %>
+</p>
+
+<p>
   <strong>Agendas:</strong>
   <%= @sala.agenda.nome %>
 </p>

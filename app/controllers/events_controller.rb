@@ -187,12 +187,14 @@ class EventsController < ApplicationController
       end_interval = @sala.seghoraini.to_i
       end_time = @sala.seghorafim.to_i
       @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(@sala.valorinterval.minutes - 1).select{|t| t <= start_interval || t >= end_interval }
     else
       start_time = DateTime.parse("0 AM").to_i
       start_interval = DateTime.parse("11:55 AM").to_i
       end_interval = DateTime.parse("12 PM").to_i
       end_time = DateTime.parse("23:55 PM").to_i
       @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
     end
 
     @event = Event.new
@@ -209,12 +211,14 @@ class EventsController < ApplicationController
       end_interval = @sala.seghoraini.to_i
       end_time = @sala.seghorafim.to_i
       @values = (start_time..end_time).step(@sala.valorinterval.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(@sala.valorinterval.minutes - 1).select{|t| t <= start_interval || t >= end_interval }
     else
       start_time = DateTime.parse("0 AM").to_i
       start_interval = DateTime.parse("11:55 AM").to_i
       end_interval = DateTime.parse("12 PM").to_i
       end_time = DateTime.parse("23:55 PM").to_i
       @values = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
+      @valuesfim = (start_time..end_time).step(5.minutes).select{|t| t <= start_interval || t >= end_interval }
     end
  
     @salas = salaspermitidas
@@ -227,22 +231,22 @@ class EventsController < ApplicationController
 
     @event.usuario_id =  current_user.id
 
+    #
+    @sala = Sala.find_by(id: @event.sala_id)
+
+    bEnviaEmailConfirmacao = false
+
+    if @sala.confirmacao == true
+      @event.pendente = true
+      bEnviaEmailConfirmacao = true
+    else 
+      @event.pendente = false 
+    end
+    #
+
     respond_to do |format|
 
         if @event.save
-
-          #
-          @sala = Sala.find_by(id: @event.sala_id)
-
-          bEnviaEmailConfirmacao = false
-      
-          if @sala.confirmacao == true
-            @event.pendente = true
-            bEnviaEmailConfirmacao = true
-          else 
-            @event.pendente = false 
-          end
-          #
 
           horaini = @event.timeini.to_time
           horafim = @event.timefim.to_time
@@ -426,8 +430,9 @@ class EventsController < ApplicationController
     tipo = ActiveModel::Type::Boolean.new.cast(params[:marcado])
     @tipomarcacao = tipo
     @sala = params[:sala]
+    @resultado = nil
 
-    if @de != nil 
+    if @de != ""
       @resultado = Event.joins(" inner join salas on events.sala_id = salas.id ")
       .joins(" inner join usuarios on events.usuario_id = usuarios.id ")
       .where("desmarcado = ? and sala_id = ? and start_date >= ? and end_date <= ?", tipo, @sala, @de, @ate)

@@ -41,32 +41,30 @@
   </thead>
   <tbody>
 
-    <% if @resultado != nil %>
+    <% if @resultado == nil or @de == nil %>
+      <h5>Nenhum dado foi encontrado ou selecionado </h5>
+    <% else %>
+      <% if @tipomarcacao == false %>
+          <h5> Resultado da consulta: Eventos Marcados</h5>
+      <% else %>
+          <h5> Resultado da consulta: Eventos Desmarcados</h5>
+      <% end %>
 
-        <% if @tipomarcacao == false %>
-            <p>Eventos Marcados</p>
-        <% else %>
-            <p>Eventos Desmarcados</p>
-        <% end %>
+      <h5>De <%= Date.parse(@de).strftime("%d/%m/%Y") %> até <%= Date.parse(@ate).strftime("%d/%m/%Y") %> </h5>
 
-        <p>De <%= Date.parse(@de).strftime("%d/%m/%Y") %> até <%= Date.parse(@ate).strftime("%d/%m/%Y") %> </p>
-        <% @resultado.each do |res| %>
-        <tr>
-            <td><%= res.nome %></td>
-            <td><%= res.title %></td>
-            <td><%= res.start_date.strftime("%d/%m/%Y") %></td>
-            <td><%= res.timeini.strftime("%H:%M") %></td>
-            <td><%= res.end_date.strftime("%d/%m/%Y") %></td> 
-            <td><%= res.timefim.strftime("%H:%M") %></td>
-            <td><%= res.descricao %></td>
-            <td><%= res.nomeUsuario %></td>
-
-        </tr>
-
+      <% @resultado.each do |res| %>
+      <tr>
+          <td><%= res.nome %></td>
+          <td><%= res.title %></td>
+          <td><%= res.start_date.strftime("%d/%m/%Y") %></td>
+          <td><%= res.timeini.strftime("%H:%M") %></td>
+          <td><%= res.end_date.strftime("%d/%m/%Y") %></td> 
+          <td><%= res.timefim.strftime("%H:%M") %></td>
+          <td><%= res.descricao %></td>
+          <td><%= res.nomeUsuario %></td>
+      </tr>
       <% end %>
     <% end %>
-    <br>
-    <br>
 
   </tbody>
 </table>
