@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'inscricao/:id' => 'agendas#inscricao', as: 'inscricao'
   get 'versalas/:id' => 'salas#versalas', as: 'versalas'
   get 'permissao/:id' => 'salas#permissao', as: 'permissao'
+  get 'consulta/:id' => 'salas#consulta', as: 'consulta'
 
   get 'addadmin/:id/sala=:sala' => 'salas#addadmin', as: 'addadmin'
   get 'altersuper/:id/sala=:sala' => 'salas#altersuper', as: 'altersuper'

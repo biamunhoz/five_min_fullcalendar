@@ -69,6 +69,19 @@ class NotificaMailer < ApplicationMailer
 
   end
 
+  def notificaadmineventonegado(eventoid, idadmin, status)
+    
+    @status = status
+    @user = Usuario.find_by(id: idadmin)
+    @evento = Event.find_by(id: eventoid)
+    
+    @userdoevento = Usuario.find_by(id: @evento.usuario_id)
+
+
+    mail to: @user.emailPrincipalUsuario, subject: "Informação do status do evento cadastrado"
+
+  end
+  
   def inscricaoagenda(idinscr, status)
     
     @status = status

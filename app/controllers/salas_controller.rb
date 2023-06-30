@@ -6,6 +6,11 @@ class SalasController < ApplicationController
     @salas = Sala.where(agenda_id: @agenda)
   end   
 
+  def consulta
+    @agenda = params[:id]
+    @salas = Sala.where(agenda_id: @agenda)
+  end  
+  
   def permissao
     @sala = params[:id]
 

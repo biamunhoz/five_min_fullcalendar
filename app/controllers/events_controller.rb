@@ -49,6 +49,15 @@ class EventsController < ApplicationController
 
     NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
 
+    @adminesuper = Permissao.where(perfil_id: [2, 1], sala_id: @event.sala_id)
+
+    @adminesuper.each do |su|
+
+      @usersuper = Usuario.find_by(id: su.usuario_id)
+      NotificaMailer.notificaadmineventonegado(@event.id, @usersuper.id, "Negado").deliver_now!
+
+    end 
+
     @event.destroy
 
     redirect_to events_url, notice: 'Evento negado'
@@ -103,11 +112,12 @@ class EventsController < ApplicationController
    
     @agendasel = params[:id]
     #@@salamostrar = salaselecionada(params[:id])
-    @@salamostrar = salaselecionada(@agendasel)
+    #@@salamostrar = salaselecionada(@agendasel)
     
-    @dadosagenda = Agenda.where(:id => @agendasel)
-    
-    @salasdaagenda = Sala.where(:agenda_id => @agendasel)
+    @@salamostrar = salaspermitidas   
+    @dadosagenda = Agenda.where(:id => @agendasel)    
+    #@salasdaagenda = Sala.where(:agenda_id => @agendasel)
+    @salasdaagenda = Sala.where(:id => salaspermitidas)
     
   end 
 
@@ -168,8 +178,14 @@ class EventsController < ApplicationController
 
     salasel = params[:idsala]
 
-    #@salas = salaspermitidas
+    @salas = Sala.joins(:permissaos).where(" permissaos.perfil_id in (1,2) and permissaos.usuario_id = ? and salas.id = ? ", current_user.id, salasel ).select("salas.id")
+ 
+    @ehadmindesala = false 
+    @salas.each do |ehadmin|
+      @ehadmindesala = true
+    end
 
+    #@salas = salaspermitidas
     #@salas = Sala.where(" id in (?) ", salasel)
 
     @sala = Sala.find(salasel)
@@ -180,7 +196,7 @@ class EventsController < ApplicationController
     # end_time = DateTime.parse("3 PM").to_i
 
     #@values = (start_time..end_time).step(15.minutes).select{|t| t <= start_interval || t >= end_interval }
-
+    
     if @sala.bloqforaintervalo == true 
       start_time = @sala.prihoraini.to_i
       start_interval = @sala.prihorafim.to_i
@@ -222,7 +238,16 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
 
+    @salas = Sala.joins(:permissaos).where(" permissaos.perfil_id in (1,2) and permissaos.usuario_id = ? ", current_user.id).select("salas.id")
+ 
+    @ehadmindesala = false 
+    @salas.each do |ehadmin|
+      @ehadmindesala = true
+    end
+
     @sala = Sala.find(@event.sala_id)
+
+    #@sala = Sala.find(@event.sala_id)
 
     if @sala.bloqforaintervalo == true 
       start_time = @sala.prihoraini.to_i
@@ -269,7 +294,6 @@ class EventsController < ApplicationController
 
     @event.usuario_id =  current_user.id
 
-    #
     @sala = Sala.find_by(id: @event.sala_id)
 
     bEnviaEmailConfirmacao = false
@@ -279,12 +303,11 @@ class EventsController < ApplicationController
       bEnviaEmailConfirmacao = true
     else 
       @event.pendente = false 
-    end
-    #
-
+    end  
+    
     respond_to do |format|
 
-        if @event.save
+        if @event.save   
 
           horaini = @event.timeini.to_time
           horafim = @event.timefim.to_time
@@ -293,6 +316,8 @@ class EventsController < ApplicationController
           diafim = @event.end_date.to_date
 
           diaini.upto(diafim) do |day|
+
+            print "ENTROUUUUUUUUUUUUUUUU AQUI "
             case day.wday       
               when 0
                 if @event.domingo == true
@@ -329,12 +354,15 @@ class EventsController < ApplicationController
           if bEnviaEmailConfirmacao == true
             NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
             NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
-          end
 
-          format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
-          format.json { render :show, status: :created, location: @event }
+            format.html { redirect_to @event, notice: 'Evento foi cadastrado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
+            format.json { render :show, status: :created, location: @event }
+
+          else 
+            format.html { redirect_to @event, notice: 'Evento foi criado com sucesso.' }
+            format.json { render :show, status: :created, location: @event }
+          end
         else
-          #format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário já reservado.' }
           format.html { redirect_to events_url, notice: @event.errors.messages }
           format.json { render json: @event.errors, status: :unprocessable_entity }
         end 
@@ -406,12 +434,16 @@ class EventsController < ApplicationController
         if bEnviaEmailConfirmacao == true
           NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
           NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+
+          format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
+          format.json { render :show, status: :created, location: @event }
+
+        else 
+          format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
+          format.json { render :show, status: :created, location: @event }
         end
         
-        format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso.' }
-        format.json { render :show, status: :ok, location: @event }
       else
-        #format.html { redirect_to events_url, notice: 'Evento não pode ser marcado, por favor consulte se não conflita com outro horário já reservado.' }
         format.html { redirect_to events_url, notice: @event.errors.messages }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
