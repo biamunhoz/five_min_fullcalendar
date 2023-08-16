@@ -5,6 +5,8 @@
     <tr>
       <th>Sala/Equipamento</th>
       <th>Título</th>
+      <th>Registrado para</th>
+      <th>Usuário que marcou</th>      
       <th>Data/Hora inicial</th>
       <th>Data/Hora final</th>
       <th>Ação</th>
@@ -20,9 +22,9 @@
       <tr>
         <td><%= event.sala.nome %></td>
         <td><%= event.title %></td>
-
+        <td><%= event.registropara %> </td>
+        <td><%= event.nomeUsuario %> </td>
         <td><%= event.start_date.strftime("%d/%m/%Y") + " - " + event.timeini.strftime("%H:%M") %></td>
-
         <td><%= event.end_date.strftime("%d/%m/%Y") + " - " + event.timefim.strftime("%H:%M")  %></td>
 
         <% if event.pendente == true %>

@@ -32,7 +32,7 @@ class NotificaMailer < ApplicationMailer
     @ate = eventoate
 
     # 2 - Supervisor
-    @super = Permissao.where(perfil_id: 2, sala_id: salaid)
+    @super = Permissao.where(perfil_id: [1,2], sala_id: salaid)
 
     @super.each do |su|
 
@@ -59,6 +59,16 @@ class NotificaMailer < ApplicationMailer
     mail to: @user.emailPrincipalUsuario, subject: "Acesso a sala restrita - Sistemas de agendas"
   end
 
+  def remocaosala(user, sala)
+
+    @user = Usuario.find_by(id: user)
+    
+    @sala = Sala.find_by(id: sala)
+
+    mail to: @user.emailPrincipalUsuario, subject: "Remoção de acesso a sala restrita - Sistemas de agendas"    
+
+  end 
+  
   def eventopendente(eventoid, usuarioid, status)
     
     @status = status
