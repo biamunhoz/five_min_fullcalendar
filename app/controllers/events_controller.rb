@@ -7,12 +7,14 @@ class EventsController < ApplicationController
 
   def index
 
-  # @events = Event.joins(:agendamentos).where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
+  #  @events = Event.joins(:agendamentos).where("sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,events.registropara) as title, 
   #  events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
   #  agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id")
 
+  #  o campo title concatenado é onde criamos o que vai ser mostrado no calendário
+ 
     @salas = Sala.joins(:permissaos).where(" permissaos.perfil_id in (1,2) and permissaos.usuario_id = ? ", current_user.id).select("salas.id")
-  
+ 
     @ehadmindesala = false 
     @salas.each do |ehadmin|
       @ehadmindesala = true
@@ -21,11 +23,21 @@ class EventsController < ApplicationController
     @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where(" desmarcado = false and sala_id in (?)", salaspermitidas).select("events.id, Concat(events.title,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i')) as title, 
     events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
     agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
-   
+
+    
     @salasdaagenda = Sala.where("id in (?)", salaspermitidas)
 
     #json.backgroundColor '#9297dd'
     #json.borderColor '#9297dd'
+
+  end
+
+  def resultagenda
+    
+    #considerar aqui as permissões 
+    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i')) as title, 
+    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
+    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
 
   end
 
@@ -47,7 +59,7 @@ class EventsController < ApplicationController
     @event = Event.find_by(:id => params[:id])
 
     NotificaMailer.eventopendente(@event.id, @event.usuario_id, "Negado").deliver_now!
-
+        
     @adminesuper = Permissao.where(perfil_id: [2, 1], sala_id: @event.sala_id)
 
     @adminesuper.each do |su|
@@ -58,12 +70,13 @@ class EventsController < ApplicationController
     end 
 
     @event.destroy
-
+    
     redirect_to events_url, notice: 'Evento negado'
 
   end
 
   def carrega_salas
+
 
     @permissao = Permissao.where(usuario_id: current_user.id)
 
@@ -73,7 +86,6 @@ class EventsController < ApplicationController
     end
 
     @salas = Sala.where(" id in (?) ", salaspermitidas)
-
   end 
 
   def salaspermitidas
@@ -112,23 +124,16 @@ class EventsController < ApplicationController
   def eventoagenda
    
     @agendasel = params[:id]
-    #@@salamostrar = salaselecionada(params[:id])
+
     #@@salamostrar = salaselecionada(@agendasel)
-    
-    @@salamostrar = salaspermitidas   
-    @dadosagenda = Agenda.where(:id => @agendasel)    
     #@salasdaagenda = Sala.where(:agenda_id => @agendasel)
+    
+    @@salamostrar = salaspermitidas    
+    @dadosagenda = Agenda.where(:id => @agendasel)   
     @salasdaagenda = Sala.where(:id => salaspermitidas)
+
     
   end 
-
-  def resultagenda
-    
-    @events = Event.joins(:agendamentos).joins(" inner join salas on events.sala_id = salas.id ").where("desmarcado = false and sala_id in (?)", @@salamostrar).select("events.id, Concat(events.title,' - ' ,events.registropara ,' - ' ,time_format(events.timeini, '%H:%i'), ' até ', time_format(events.timefim, '%H:%i')) as title, 
-    events.start_date, events.end_date, events.timeini, events.timefim, agendamentos.data_inicio, agendamentos.data_fim, 
-    agendamentos.hora_inicio, agendamentos.hora_fim, events.descricao, events.registropara, events.usuario_id, events.sala_id, salas.cor")
-
-  end
 
   def agendamentos
 
@@ -197,7 +202,7 @@ class EventsController < ApplicationController
     # end_time = DateTime.parse("3 PM").to_i
 
     #@values = (start_time..end_time).step(15.minutes).select{|t| t <= start_interval || t >= end_interval }
-    
+
     if @sala.bloqforaintervalo == true 
       start_time = @sala.prihoraini.to_i
       start_interval = @sala.prihorafim.to_i
@@ -248,8 +253,6 @@ class EventsController < ApplicationController
 
     @sala = Sala.find(@event.sala_id)
 
-    #@sala = Sala.find(@event.sala_id)
-
     if @sala.bloqforaintervalo == true 
       start_time = @sala.prihoraini.to_i
       start_interval = @sala.prihorafim.to_i
@@ -275,7 +278,7 @@ class EventsController < ApplicationController
      
       #Inclui a ultima hora definida
       @valuesfim << @sala.seghorafim 
-      
+
     else
       start_time = DateTime.parse("0 AM").to_i
       start_interval = DateTime.parse("11:55 AM").to_i
@@ -353,8 +356,8 @@ class EventsController < ApplicationController
           end
   
           if bEnviaEmailConfirmacao == true
-            NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
-            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+            NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+            NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
 
             format.html { redirect_to @event, notice: 'Evento foi cadastrado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
             format.json { render :show, status: :created, location: @event }
@@ -433,8 +436,8 @@ class EventsController < ApplicationController
         end
 
         if bEnviaEmailConfirmacao == true
-          NotificaMailer.confirmacao(current_user.id, @event.title).deliver_now!
-          NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date).deliver_now!
+          NotificaMailer.confirmacao(current_user.id, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
+          NotificaMailer.confirmacaosuper(@event.sala_id, @sala.nome, @event.title, @event.start_date.to_date, @event.end_date.to_date, horaini, horafim).deliver_now!
 
           format.html { redirect_to @event, notice: 'Evento foi atualizado com sucesso. Sujeito a avaliação dos administradores, aguarde confirmação.' }
           format.json { render :show, status: :created, location: @event }
@@ -505,7 +508,7 @@ class EventsController < ApplicationController
     @sala = params[:sala]
     @resultado = nil
 
-    if @de != ""
+    if @de != ""       
       @resultado = Event.joins(" inner join salas on events.sala_id = salas.id ")
       .joins(" inner join usuarios on events.usuario_id = usuarios.id ")
       .where("desmarcado = ? and sala_id = ? and start_date >= ? and end_date <= ?", tipo, @sala, @de, @ate)

@@ -8,7 +8,7 @@ class AgendasController < ApplicationController
     @inscricao = Inscricao.joins(:usuario).joins(:agenda).where("usuarios.loginUsuario = ? ", session[:login]).select("usertipo, agenda_id")
     if session[:admingeral] == true
       @agendas = Agenda.all
-    else
+    else      
       @agendas = carrega_agendas
     end   
 
@@ -40,7 +40,8 @@ class AgendasController < ApplicationController
             @insc.save!
   
             NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
-
+            NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+          
             @confirmado = false
             print "Aqui 1**********************"
           else
@@ -53,6 +54,8 @@ class AgendasController < ApplicationController
             @insc.save!
 
             NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+            NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+          
             addpermissao(@agenda, current_user.id)
             @confirmado = true
             print "Aqui 2*************************"
@@ -68,6 +71,8 @@ class AgendasController < ApplicationController
           @insc.save!
 
           NotificaMailer.permissaoagenda(@agenda, current_user.id).deliver_now!
+          NotificaMailer.permissaoagendauser(@agenda, current_user.id).deliver_now!
+
           @confirmado = false
 
           print "Aqui 3**************************"
@@ -80,7 +85,7 @@ class AgendasController < ApplicationController
 
     end  
     
-  end   
+  end  
 
   def verinscritos
 
@@ -116,6 +121,7 @@ class AgendasController < ApplicationController
 
 
   def alternegar
+
     @insc = Inscricao.find_by(:id => params[:id])
     
     @insc.tipo = "Negado"

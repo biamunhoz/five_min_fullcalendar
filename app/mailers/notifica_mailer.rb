@@ -1,6 +1,14 @@
 class NotificaMailer < ApplicationMailer
 
-
+  def senha_reset(usuario)
+    @usuario = usuario
+    mail({
+             to: @usuario.emailPrincipalUsuario,
+             subject: "Alteração de senha",
+             date: Time.now
+         })
+  end
+  
   def avisohorariovago(email, ini, fim, nomesala, nomeuser)
     
     @ini = ini 
@@ -15,22 +23,29 @@ class NotificaMailer < ApplicationMailer
   # with the following lookup:
   #
   #   en.notifica_mailer.confirmacao.subject
-  def confirmacao(user, titulo)
+  def confirmacao(user, titulo, eventode, eventoate, horaini, horafim)
 
     @user = Usuario.find_by(id: user)
     @evento = titulo
+    @de = eventode
+    @ate = eventoate
+    @hini = horaini
+    @hfim = horafim
 
     mail to: @user.emailPrincipalUsuario, subject: "Evento criado - Pendente"
 
   end
 
-  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate)
+  def confirmacaosuper(salaid, salanome, eventonome, eventode, eventoate, horaini, horafim)
 
     @sala = salanome
     @evento = eventonome
     @de = eventode
     @ate = eventoate
+    @hini = horaini
+    @hfim = horafim
 
+    # 1 - Admin
     # 2 - Supervisor
     @super = Permissao.where(perfil_id: [1,2], sala_id: salaid)
 
@@ -68,14 +83,14 @@ class NotificaMailer < ApplicationMailer
     mail to: @user.emailPrincipalUsuario, subject: "Remoção de acesso a sala restrita - Sistemas de agendas"    
 
   end 
-  
+
   def eventopendente(eventoid, usuarioid, status)
     
     @status = status
     @user = Usuario.find_by(id: usuarioid)
     @evento = Event.find_by(id: eventoid)
 
-    mail to: @user.emailPrincipalUsuario, subject: "Informação de status do evento cadastrado"
+    mail to: @user.emailPrincipalUsuario, subject: "Informação do status do evento cadastrado"
 
   end
 
@@ -91,7 +106,7 @@ class NotificaMailer < ApplicationMailer
     mail to: @user.emailPrincipalUsuario, subject: "Informação do status do evento cadastrado"
 
   end
-  
+
   def inscricaoagenda(idinscr, status)
     
     @status = status
@@ -106,6 +121,20 @@ class NotificaMailer < ApplicationMailer
 
   end
 
+  def permissaoagendauser(agenda, user)
+
+    @useratual = Usuario.find_by(id: user)
+    
+    @agenda = Agenda.find_by(id: agenda)
+
+    mail to: @useratual.emailPrincipalUsuario, subject: "Permissão de usuário - Sistema de agendas"
+
+    # mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
+    #   format.text 
+    #   format.html 
+    # end
+
+  end 
 
   def permissaoagenda(agenda, user)
 
@@ -117,14 +146,19 @@ class NotificaMailer < ApplicationMailer
 
     @salasx.each do |s| 
 
-      @super = Permissao.where(perfil_id: 2, sala_id: s.id)
+      @super = Permissao.where(perfil_id: [2, 1], sala_id: s.id)
 
       @super.each do |su|
 
         @usersuper = Usuario.find_by(id: su.usuario_id)
 
-        mail to: @usersuper.emailPrincipalUsuario, cc: @user.emailPrincipalUsuario, subject: "Permissão de usuário - Agenda"
+        mail(:to =>  @usersuper.emailPrincipalUsuario, :subject => "Permissão de usuário - Agenda") do |format|
+          format.text 
+          format.html 
+        end
+
       end
+
     end
     
   end
