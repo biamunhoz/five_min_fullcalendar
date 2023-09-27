@@ -30,5 +30,18 @@
   <%= @event.end_date.strftime("%d/%m/%Y") + " - " + @event.timefim.strftime("%H:%M") %>
 </p>
 
-<%= link_to 'Editar', edit_event_path(@event), class: 'btn btn-warning' %> |
+<p>
+  <strong>Status:</strong>
+</p>
+
+<% if @event.pendente == true %>
+  <p style="color:red;"><b>Esperando confirmação - ⧗ EA</b> </p>
+<% else %>
+  <p style="color:green;"><b>Confirmado - Ⓥ</b></p>
+<% end %>
+
+
+<% if session[:admingeral] == true %>
+  <%= link_to 'Editar', edit_event_path(@event), class: 'btn btn-warning' %> |
+<% end %>
 <%= link_to 'Voltar', :back, class: 'btn btn-dark active' %>

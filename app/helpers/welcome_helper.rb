@@ -20,8 +20,12 @@ module WelcomeHelper
 
   #destroi a sessão criada na def anterior
   def log_out
+    
+    session[:admingeral] = false
+
     session.destroy
     @current_user = nil
+    
   end
 
   def current_user
