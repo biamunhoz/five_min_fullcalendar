@@ -74,6 +74,19 @@ class NotificaMailer < ApplicationMailer
     mail to: @user.emailPrincipalUsuario, subject: "Acesso a sala restrita - Sistemas de agendas"
   end
 
+  def permissaosalaadm(user, sala, perfil, usercad)
+    
+    @useradm = Usuario.find_by(id: user)
+
+    @usercadastrado = Usuario.find_by(id: usercad)
+    
+    @sala = Sala.find_by(id: sala)
+
+    @perfil = perfil
+
+    mail to: @useradm.emailPrincipalUsuario, subject: "Acesso a sala restrita - Sistemas de agendas"
+  end
+
   def remocaosala(user, sala)
 
     @user = Usuario.find_by(id: user)

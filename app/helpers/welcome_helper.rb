@@ -41,7 +41,7 @@ module WelcomeHelper
 
   def carrega_salas
 
-    @permissao = Permissao.where(usuario_id: current_user.id)
+    @permissao = Permissao.where(usuario_id: current_user.id, perfil_id: [1,2,3])
 
     salaspermitidas = Array.new
     @permissao.each do |p|

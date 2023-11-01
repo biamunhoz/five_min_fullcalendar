@@ -7,6 +7,7 @@
       <th>Observação</th>
       <th>Calendário</th>
       <th>Dados da inscrição</th>
+      <th>Formulário extra</th>  
       <th></th>
     </tr>
   </thead>
@@ -32,6 +33,8 @@
             <% elsif i.tipo == "Negado"%>
               <td>Negado </td>             
             <% end %>
+
+            <td><%= link_to "Formulário extra", agenda.reservadoformextra, class: 'btn btn-warning btn-lg' %></td>
 
             <% if i.usertipo == "Admin" or session[:admingeral] == true %>
               <td><%= link_to 'Inscritos', verinscritos_path(agenda), class: 'btn btn-light'  %></td>  
