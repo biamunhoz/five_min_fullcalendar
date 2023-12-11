@@ -8,7 +8,7 @@ module EventsHelper
         primeiro_nome = palavras.first
         
         return primeiro_nome
-      end
+    end
       
 
 end
